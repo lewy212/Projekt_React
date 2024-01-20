@@ -25,7 +25,7 @@ export default function App() {
     <div className="app">
       {showScore ? (
         <section className="showScore-section">
-          Your score is {score} out of {questions.length}
+          Twoje punkty: {score} / {questions.length}
         </section>
       ) : (
         <>

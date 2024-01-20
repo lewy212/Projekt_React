@@ -30,15 +30,15 @@ export default function App() {
       ) : (
         <>
           <section className="question-section">
-            <h1>
+            <h1 className="header-styled-h1">
               Question {currentQuestion + 1}/{questions.length}
             </h1>
-            <p>{questions[currentQuestion].questionText}</p>
+            <p className="text-styled">{questions[currentQuestion].questionText}</p>
           </section>
 
           <section className="answer-section">
             {questions[currentQuestion].answerOptions.map((item) => (
-              <button onClick={() => handleClick(item.isCorrect)}>
+              <button className="btn" onClick={() => handleClick(item.isCorrect)}>
                 {item.answerText}
               </button>
             ))}

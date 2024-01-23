@@ -31,7 +31,7 @@ export default function PrzykladowyQuiz() {
                 <>
                     <section className="question-section">
                         <h1 className="header-styled-h1">
-                            Question {currentQuestion + 1}/{questions.length}
+                            Pytanie: {currentQuestion + 1}/{questions.length}
                         </h1>
                         <p className="text-styled">{questions[currentQuestion].questionText}</p>
                     </section>

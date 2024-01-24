@@ -16,6 +16,7 @@ const HeaderRouting = ({ listaQuizow }) => {
             <Route exact path="/" component={PrzykladowyQuiz} />
 
             <Route exact path="/nic" component={DodajQuiz} />
+            {/*filip*/}
             <Route path="/quizy/:quizId" component={RozwiazywanieQuiz} />
 
             <Route exact path="/quizy" render={() => <WyswietlQuizy listaQuizow={listaQuizow} />} />

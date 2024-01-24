@@ -162,27 +162,31 @@ button {
   }
 }
 
+/* Dodaj te style do istniejącego arkusza stylów */
+
 .topnav {
   background-color: #333;
   overflow: hidden;
   width: 100%;
   padding-bottom: 30px;
-  position: fixed; /* Dodane, aby utrzymać nawigację na samej górze */
-  top: 0; /* Dodane, aby utrzymać nawigację na samej górze */
+  position: fixed;
+  top: 0;
+  z-index: 1000;
 }
 
 .topnavElements {
   display: flex;
-  justify-content: center; /* Zmiana z 'space-around' na 'center' */
+  justify-content: center;
   align-items: center;
   height: 50px;
+  margin-top: 30px; /* Dodaj margines do górnej krawędzi topnav, aby oddzielić go od treści strony */
 }
 
 .navElement {
   color: white;
   padding: 14px 16px;
   text-decoration: none;
-  font-size: 18px; /* Dostosuj wielkość tekstu według własnych preferencji */
+  font-size: 18px;
 }
 
 .navElement:hover {
@@ -190,6 +194,47 @@ button {
   color: black;
 }
 
+
+.quiz-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  max-width: 800px;
+  margin: 0 auto;
+  margin-top: 400px;
+}
+.quiz-card {
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 8px;
+  padding: 15px;
+  margin: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.quiz-card:hover {
+  transform: scale(1.05);
+}
+
+h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.quiz-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  max-width: 800px;
+  margin: 0 auto;
+  margin-top: 40px;
+}
 
 
 

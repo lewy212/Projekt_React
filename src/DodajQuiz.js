@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import QuizClass from './klasy/QuizClass';
 import PytanieClass from './klasy/PytanieClass';
 import OdpowiedziClass from './klasy/OdpowiedziClass';
+import {Link} from "react-router-dom";
 
 function DodajQuiz({ dodajQuizDoListy,idOstatniegoQuizu }) {
     const [nazwa, setNazwa] = useState('');
@@ -48,40 +49,66 @@ function DodajQuiz({ dodajQuizDoListy,idOstatniegoQuizu }) {
         dodajQuizDoListy(nowyQuiz);
         setQuizDodany(true);
     };
-    
-    
-    
+
+
+
 
     return (
-        <div style={{ margin: '100px' }}>
+        <div id="quizContainer">
             {quizDodany ? (
-                <div>
+                <div className="quizDodany">
                     <h2>Quiz został dodany!</h2>
                     <p>ID quizu: {quizId}</p>
                     <p>Nazwa quizu: {nazwa}</p>
-                    <p>Link do quizu: <a href={`/quizy/${quizId}`} target="_blank" rel="noopener noreferrer">Rozwiąż quiz</a></p>
+                    <Link to={`/rozwiaz-quiz/${quizId}`}>
+                        <button>Rozwiąż Quiz</button>
+                    </Link>
                 </div>
             ) : (
                 <>
                     <h2>Dodaj nowy quiz</h2>
-                    <input type="text" value={nazwa} onChange={(e) => setNazwa(e.target.value)} placeholder="Nazwa quizu" />
-                    <input type="text" value={kategoria} onChange={(e) => setKategoria(e.target.value)} placeholder="Kategoria" />
-    
+                    <label>
+                        Nazwa quizu:
+                        <input type="text" value={nazwa} onChange={(e) => setNazwa(e.target.value)} placeholder="Nazwa quizu"/>
+                    </label>
+                    <label>
+                        Kategoria:
+                        <input type="text" list="categoryList" value={kategoria} onChange={(e) => setKategoria(e.target.value)} placeholder="Kategoria" />
+                        <datalist id="categoryList">
+                            <option>Przyroda i Środowisko</option>
+                            <option>Historia i Kultura</option>
+                            <option>Geografia i Miejsca</option>
+                            <option>Gastronomia</option>
+                            <option>Sport i Rozrywka</option>
+                            <option>Sławni Ludzie</option>
+                        </datalist>
+                    </label>
                     <h3>Dodaj pytanie</h3>
-                    <input type="text" value={pytanieTekst} onChange={(e) => setPytanieTekst(e.target.value)} placeholder="Treść pytania" />
-                    <ul>
+                    <label>
+                        Treść pytania:
+                        <input type="text" value={pytanieTekst} onChange={(e) => setPytanieTekst(e.target.value)} placeholder="Treść pytania" />
+                    </label>
+                    <ul className="answer-section">
                         {odpowiedzi.map((odp, index) => (
-                            <li key={index}>
+                            <li key={index} className="answer-item">
+                                <input
+                                    type="radio"
+                                    name="poprawnaOdpowiedz"
+                                    onChange={() => setNumerPoprawnejOdpowiedzi(index)}
+                                />
                                 <span>{odp.tresc}</span>
-                                <input type="radio" name="poprawnaOdpowiedz" onChange={() => setNumerPoprawnejOdpowiedzi(index)} />
                             </li>
                         ))}
                     </ul>
-                    <input type="text" value={odpowiedzTekst} onChange={(e) => setOdpowiedzTekst(e.target.value)} placeholder="Tekst odpowiedzi" />
+
+                    <label>
+                        Tekst odpowiedzi:
+                        <input type="text" value={odpowiedzTekst} onChange={(e) => setOdpowiedzTekst(e.target.value)} placeholder="Tekst odpowiedzi" />
+                    </label>
                     <button onClick={handleDodajOdpowiedz}>Dodaj odpowiedź</button>
                     <button onClick={handleDodajPytanie}>Dodaj pytanie</button>
                     <button onClick={handleDodajQuiz}>Dodaj quiz</button>
-    
+
                     <h3>Dodane pytania:</h3>
                     <ul>
                         {pytania.map((pytanie, index) => (
@@ -92,7 +119,8 @@ function DodajQuiz({ dodajQuizDoListy,idOstatniegoQuizu }) {
             )}
         </div>
     );
-    
+
+
 }
 
 export default DodajQuiz;

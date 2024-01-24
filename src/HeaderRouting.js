@@ -9,7 +9,7 @@ import WyswietlQuizy from "./WyswietlQuizy";
 import RozwiazQuiz from "./RozwiazQuiz";
 
 
-const HeaderRouting = ({ listaQuizow, dodajQuizDoListy }) => {
+const HeaderRouting = ({ listaQuizow, dodajQuizDoListy,usunQuizZListy }) => {
     const getIdOstatniegoQuizu = () => {
         if (listaQuizow.length === 0) {
             return null;
@@ -25,7 +25,7 @@ const HeaderRouting = ({ listaQuizow, dodajQuizDoListy }) => {
             {/*filip*/}
             <Route path="/quizy/:quizId" component={RozwiazywanieQuiz} />
 
-            <Route exact path="/quizy" render={() => <WyswietlQuizy listaQuizow={listaQuizow} />} />
+            <Route exact path="/quizy" render={() => <WyswietlQuizy listaQuizow={listaQuizow} usunQuizZListy={usunQuizZListy} />} />
             <Route exact path="/rozwiaz-quiz/:id" render={(props) => <RozwiazQuiz listaQuizow={listaQuizow} {...props} />} />
 
         </Router>

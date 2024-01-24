@@ -39,7 +39,7 @@ class App extends Component {
         console.log(this.state.listaQuizow)
         return (
             <div>
-                <HeaderRouting listaQuizow={this.state.listaQuizow} dodajQuizDoListy={this.dodajQuizDoListy}/>
+                <HeaderRouting listaQuizow={this.state.listaQuizow} dodajQuizDoListy={this.dodajQuizDoListy} usunQuizZListy={this.usunQuizZListy}/>
 
                 {/*<WyswietlQuizy listaQuizow={this.state.listaQuizow} />*/}
             </div>

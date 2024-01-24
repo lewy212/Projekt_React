@@ -2,7 +2,7 @@ import React from "react";
 import QuizClass from "./klasy/QuizClass";
 import RozwiazQuiz from "./RozwiazQuiz";
 import { Link } from "react-router-dom";
-const WyswietlQuizy = ({ listaQuizow }) => {
+const WyswietlQuizy = ({ listaQuizow,usunQuizZListy }) => {
     const [rozwiazanieQuizu, setRozwiazanieQuizu] = React.useState(null);
 
     const handleRozwiazQuiz = (quizId) => {
@@ -11,6 +11,9 @@ const WyswietlQuizy = ({ listaQuizow }) => {
 
     const handleCloseRozwiazQuiz = () => {
         setRozwiazanieQuizu(null);
+    };
+    const handleUsunQuiz = (id) => {
+        usunQuizZListy(id)
     };
     return (
         <div>
@@ -25,6 +28,9 @@ const WyswietlQuizy = ({ listaQuizow }) => {
                         <Link to={`/rozwiaz-quiz/${quiz.id}`}>
                             <button>Rozwiąż Quiz</button>
                         </Link>
+                        <button  onClick={() => handleUsunQuiz(quiz.id)} className="deleteButton">Usun <br></br>Quiz</button><br></br>
+                        <button  onClick={() => handleUsunQuiz(quiz.id)} className="editButton">Edytuj<br></br> Quiz</button>
+
                     </div>
                 ))}
             </div>

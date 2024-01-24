@@ -64,6 +64,8 @@ button {
   background-color: #2b3868;
   border-radius: 3px;
   padding: 5px;
+  margin-right: 20px;
+  max-width: 800px;
   align-items: center;
   cursor: pointer;
   border: none;
@@ -193,7 +195,14 @@ button {
   background-color: #ddd;
   color: black;
 }
-
+.deleteButton{
+  background-color: red;
+}
+.editButton{
+  background-color: #333333;
+  margin-top: 10px;
+  margin-left: 60px;
+}
 
 .quiz-list {
   display: flex;
@@ -207,7 +216,7 @@ button {
   background-color: #ffffff;
   border: 1px solid #dddddd;
   border-radius: 8px;
-  padding: 15px;
+  padding: 50px;
   margin: 15px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease-in-out;
@@ -267,6 +276,12 @@ p {
   display: block;
   font-size: 18px;
   margin-bottom: 10px;
+}
+#quizContainer select {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  margin-bottom: 15px;
 }
 
 #quizContainer input {

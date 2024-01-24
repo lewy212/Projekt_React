@@ -14,18 +14,39 @@ function DodajQuiz({ dodajQuizDoListy,idOstatniegoQuizu }) {
     const [odpowiedzTekst, setOdpowiedzTekst] = useState('');
     const [odpowiedzPrawidlowa, setOdpowiedzPrawidlowa] = useState(false);
     const [numerPoprawnejOdpowiedzi, setNumerPoprawnejOdpowiedzi] = useState(null);
-    
+
+    const [bladWalidacjiPytania, setBladWalidacjiPytania] = useState('');
+    const [bladWalidacjiOdpowiedzi, setBladWalidacjiOdpowiedzi] = useState('');
+    const [bladWalidacjiQuizu, setBladWalidacjiQuizu] = useState('');
     const [quizDodany, setQuizDodany] = useState(false);
     const [quizId, setQuizId] = useState(null);
 
+
+    function czyNieZawieraZnakowSpecjalnych(tekst) {
+        const regex = /^[a-zA-Z0-9 ]+$/; // Znaki alfanumeryczne
+        return regex.test(tekst);
+    }
+    function zaczynaSieWielkaLitera(tekst) {
+        return tekst.charAt(0) === tekst.charAt(0).toUpperCase();
+    }
     const handleDodajOdpowiedz = () => {
+        if (!odpowiedzTekst || odpowiedzTekst.length<2 || !czyNieZawieraZnakowSpecjalnych(odpowiedzTekst)) {
+            setBladWalidacjiOdpowiedzi('Uzupełnij odpowiedz (min:2, brak znakow specjalnych)');
+            return;
+        }
         const nowaOdpowiedz = new OdpowiedziClass(odpowiedzi.length, odpowiedzTekst, odpowiedzPrawidlowa);
         setOdpowiedzi([...odpowiedzi, nowaOdpowiedz]);
         setOdpowiedzTekst('');
+        setBladWalidacjiOdpowiedzi('');
         setOdpowiedzPrawidlowa(false);
     };
 
     const handleDodajPytanie = () => {
+
+        if (!pytanieTekst || odpowiedzi.length < 2 || numerPoprawnejOdpowiedzi === null || odpowiedzi.length>30 ||!zaczynaSieWielkaLitera(pytanieTekst)) {
+            setBladWalidacjiPytania('Uzupełnij pytanie (min:5, max:30, zaznaczona odpowiedz, zaczyna sie wielka litera, min 2 odpowiedzi)');
+            return;
+        }
         const nowePytanie = new PytanieClass(
             pytania.length,
             pytanieTekst,
@@ -35,11 +56,16 @@ function DodajQuiz({ dodajQuizDoListy,idOstatniegoQuizu }) {
         setPytania([...pytania, nowePytanie]);
         setPytanieTekst('');
         setOdpowiedzi([]);
+        setBladWalidacjiPytania('');
         setNumerPoprawnejOdpowiedzi(null);
     };
     
 
     const handleDodajQuiz = () => {
+        if (!nazwa || nazwa.length<5 ||nazwa.length>20) {
+            setBladWalidacjiQuizu('Uzupełnij Quiz (min:5, max:20, data wygasniecia conajmniej dzien pozniej)');
+            return;
+        }
         const noweId = idOstatniegoQuizu()+1;
         setQuizId(noweId);
         const dataDodania = new Date();
@@ -47,6 +73,7 @@ function DodajQuiz({ dodajQuizDoListy,idOstatniegoQuizu }) {
         dataWygasniecia.setDate(dataDodania.getDate() + 7)
         const nowyQuiz = new QuizClass(noweId, nazwa, kategoria,dataDodania,dataWygasniecia, pytania);
         dodajQuizDoListy(nowyQuiz);
+        setBladWalidacjiQuizu('');
         setQuizDodany(true);
     };
 
@@ -68,22 +95,24 @@ function DodajQuiz({ dodajQuizDoListy,idOstatniegoQuizu }) {
                 <>
                     <h2>Dodaj nowy quiz</h2>
                     <label>
+                        {bladWalidacjiQuizu && <p style={{ color: 'red' }}>{bladWalidacjiQuizu}</p>}
                         Nazwa quizu:
                         <input type="text" value={nazwa} onChange={(e) => setNazwa(e.target.value)} placeholder="Nazwa quizu"/>
                     </label>
                     <label>
                         Kategoria:
-                        <input type="text" list="categoryList" value={kategoria} onChange={(e) => setKategoria(e.target.value)} placeholder="Kategoria" />
-                        <datalist id="categoryList">
-                            <option>Przyroda i Środowisko</option>
-                            <option>Historia i Kultura</option>
-                            <option>Geografia i Miejsca</option>
-                            <option>Gastronomia</option>
-                            <option>Sport i Rozrywka</option>
-                            <option>Sławni Ludzie</option>
-                        </datalist>
+                        <select value={kategoria} onChange={(e) => setKategoria(e.target.value)}>
+                            <option value="Przyroda i Środowisko">Przyroda i Środowisko</option>
+                            <option value="Historia i Kultura">Historia i Kultura</option>
+                            <option value="Geografia i Miejsca">Geografia i Miejsca</option>
+                            <option value="Gastronomia">Gastronomia</option>
+                            <option value="Sport i Rozrywka">Sport i Rozrywka</option>
+                            <option value="Sławni Ludzie">Sławni Ludzie</option>
+                        </select>
                     </label>
+
                     <h3>Dodaj pytanie</h3>
+                    {bladWalidacjiPytania && <p style={{ color: 'red' }}>{bladWalidacjiPytania}</p>}
                     <label>
                         Treść pytania:
                         <input type="text" value={pytanieTekst} onChange={(e) => setPytanieTekst(e.target.value)} placeholder="Treść pytania" />
@@ -100,9 +129,9 @@ function DodajQuiz({ dodajQuizDoListy,idOstatniegoQuizu }) {
                             </li>
                         ))}
                     </ul>
-
+                        {bladWalidacjiOdpowiedzi && <p style={{ color: 'red' }}>{bladWalidacjiOdpowiedzi}</p>}
                     <label>
-                        Tekst odpowiedzi:
+                        Tekst odpowiedzi
                         <input type="text" value={odpowiedzTekst} onChange={(e) => setOdpowiedzTekst(e.target.value)} placeholder="Tekst odpowiedzi" />
                     </label>
                     <button onClick={handleDodajOdpowiedz}>Dodaj odpowiedź</button>

@@ -11,19 +11,18 @@ function RozwiazQuiz() {
     const [isLoading, setIsLoading] = useState(true); // Dodajemy stan do śledzenia ładowania danych
 
     useEffect(() => {
-        if (quiz) {
-            if (quiz.listaPytan && quiz.listaPytan.length > 0) {
-                setPytaniaQuizu(quiz.listaPytan);
-                const initialAnswers = new Array(quiz.listaPytan.length).fill(null);
-                setOdpowiedzi(initialAnswers);
-            } else {
-                console.log("Quiz nie zawiera pytań.");
-            }
+        const quizData = localStorage.getItem(`quiz-${quizId}`);
+        const loadedQuiz = quizData ? JSON.parse(quizData) : null;
+    
+        if (loadedQuiz && loadedQuiz.listaPytan) {
+            setPytaniaQuizu(loadedQuiz.listaPytan);
+            setOdpowiedzi(new Array(loadedQuiz.listaPytan.length).fill(null));
         } else {
-            console.log("Quiz nie został znaleziony.");
+            console.log("Quiz nie zawiera pytań.");
         }
         setIsLoading(false);
-    }, [quiz]);
+    }, [quizId]);
+    
     
 
     const handleOdpowiedz = (index, numerPoprawnejOdpowiedzi) => {

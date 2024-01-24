@@ -3,7 +3,7 @@ import QuizClass from './klasy/QuizClass';
 import PytanieClass from './klasy/PytanieClass';
 import OdpowiedziClass from './klasy/OdpowiedziClass';
 
-function DodajQuiz() {
+function DodajQuiz({ dodajQuizDoListy,idOstatniegoQuizu }) {
     const [nazwa, setNazwa] = useState('');
     const [kategoria, setKategoria] = useState('');
     const [pytania, setPytania] = useState([]);
@@ -39,13 +39,13 @@ function DodajQuiz() {
     
 
     const handleDodajQuiz = () => {
-        const noweId = Math.random().toString(36).substr(2, 9);
+        const noweId = idOstatniegoQuizu()+1;
         setQuizId(noweId);
-    
-        const nowyQuiz = new QuizClass(noweId, nazwa, kategoria, pytania);
-        console.log("Zapisywanie quizu z pytaniami:", nowyQuiz);
-    
-        localStorage.setItem(`quiz-${noweId}`, JSON.stringify(nowyQuiz));
+        const dataDodania = new Date();
+        const dataWygasniecia = new Date();
+        dataWygasniecia.setDate(dataDodania.getDate() + 7)
+        const nowyQuiz = new QuizClass(noweId, nazwa, kategoria,dataDodania,dataWygasniecia, pytania);
+        dodajQuizDoListy(nowyQuiz);
         setQuizDodany(true);
     };
     
@@ -59,7 +59,7 @@ function DodajQuiz() {
                     <h2>Quiz został dodany!</h2>
                     <p>ID quizu: {quizId}</p>
                     <p>Nazwa quizu: {nazwa}</p>
-                    <p>Link do quizu: <a href={`/quiz/${quizId}`} target="_blank" rel="noopener noreferrer">Rozwiąż quiz</a></p>
+                    <p>Link do quizu: <a href={`/quizy/${quizId}`} target="_blank" rel="noopener noreferrer">Rozwiąż quiz</a></p>
                 </div>
             ) : (
                 <>

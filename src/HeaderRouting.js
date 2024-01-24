@@ -9,13 +9,19 @@ import WyswietlQuizy from "./WyswietlQuizy";
 import RozwiazQuiz from "./RozwiazQuiz";
 
 
-const HeaderRouting = ({ listaQuizow }) => {
+const HeaderRouting = ({ listaQuizow, dodajQuizDoListy }) => {
+    const getIdOstatniegoQuizu = () => {
+        if (listaQuizow.length === 0) {
+            return null;
+        }
+        return listaQuizow[listaQuizow.length - 1].id ;
+    };
     return (
         <Router>
             <Navbar />
             <Route exact path="/" component={PrzykladowyQuiz} />
 
-            <Route exact path="/nic" component={DodajQuiz} />
+            <Route exact path="/nic" render={(props) => <DodajQuiz dodajQuizDoListy={dodajQuizDoListy} idOstatniegoQuizu={getIdOstatniegoQuizu} {...props} />}/>
             {/*filip*/}
             <Route path="/quizy/:quizId" component={RozwiazywanieQuiz} />
 

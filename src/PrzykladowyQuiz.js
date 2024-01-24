@@ -2,7 +2,6 @@ import React from "react";
 import "./App.css";
 import { questions } from "./questions";
 
-
 export default function PrzykladowyQuiz() {
     const [currentQuestion, setCurrentQuestion] = React.useState(0);
     const [score, setScore] = React.useState(0);
@@ -37,8 +36,8 @@ export default function PrzykladowyQuiz() {
                     </section>
 
                     <section className="answer-section">
-                        {questions[currentQuestion].answerOptions.map((item) => (
-                            <button className="btn" onClick={() => handleClick(item.isCorrect)}>
+                        {questions[currentQuestion].answerOptions.map((item, index) => (
+                            <button key={index} className="btn" onClick={() => handleClick(item.isCorrect)}>
                                 {item.answerText}
                             </button>
                         ))}

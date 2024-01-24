@@ -26,6 +26,7 @@ const HeaderRouting = ({ listaQuizow, dodajQuizDoListy,usunQuizZListy }) => {
             <Route path="/quizy/:quizId" component={RozwiazywanieQuiz} />
 
             <Route exact path="/quizy" render={() => <WyswietlQuizy listaQuizow={listaQuizow} usunQuizZListy={usunQuizZListy} />} />
+            <Route exact path="/edytuj-quiz/:quizId" render={(props) => <DodajQuiz  dodajQuizDoListy={dodajQuizDoListy} idOstatniegoQuizu={getIdOstatniegoQuizu} listaQuizow={listaQuizow} {...props} />}/>
             <Route exact path="/rozwiaz-quiz/:id" render={(props) => <RozwiazQuiz listaQuizow={listaQuizow} {...props} />} />
 
         </Router>

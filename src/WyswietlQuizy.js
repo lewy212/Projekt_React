@@ -29,7 +29,10 @@ const WyswietlQuizy = ({ listaQuizow,usunQuizZListy }) => {
                             <button>Rozwiąż Quiz</button>
                         </Link>
                         <button  onClick={() => handleUsunQuiz(quiz.id)} className="deleteButton">Usun <br></br>Quiz</button><br></br>
-                        <button  onClick={() => handleUsunQuiz(quiz.id)} className="editButton">Edytuj<br></br> Quiz</button>
+                        <Link to={`/edytuj-quiz/${quiz.id}`}>
+                            <button className="editButton">Edytuj<br></br> Quiz</button>
+                        </Link>
+
 
                     </div>
                 ))}

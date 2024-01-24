@@ -20,7 +20,7 @@ class App extends Component {
                     new OdpowiedziClass(2,"Kogut"),new OdpowiedziClass(3,"Bizon"),new OdpowiedziClass(4,"Bocian biały")],4),
                 new PytanieClass(2,"Najpopularniejsze zwierzę na podlasiu",[new OdpowiedziClass(5,"Lis"),new OdpowiedziClass(6,"Kogut"),
                 new OdpowiedziClass(7,"Żyrafa"),new OdpowiedziClass(8,"Dziki")],4)]),
-            new QuizClass(1,"Miasta na podlasiu","Miasta",dataDodania,dataWygasniecia,[])],
+            new QuizClass(2,"Miasta na podlasiu","Miasta",dataDodania,dataWygasniecia,[])],
         };
     }
 

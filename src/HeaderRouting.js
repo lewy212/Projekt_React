@@ -4,7 +4,7 @@ import App from "./App";
 import Navbar from "./Navbar";
 import PrzykladowyQuiz from "./PrzykladowyQuiz";
 import DodajQuiz from "./DodajQuiz";
-import RozwiazQuiz from "./RozwiazQuiz";
+import RozwiazywanieQuiz from "./RozwiazywanieQuiz";
 
 const HeaderRouting = () => {
     return (
@@ -12,7 +12,7 @@ const HeaderRouting = () => {
             <Navbar />
             <Route exact path="/" component={PrzykladowyQuiz} />
             <Route exact path="/nic" component={DodajQuiz} />
-            <Route path="/quiz/:quizId" component={RozwiazQuiz} />
+            <Route path="/quizy/:quizId" component={RozwiazywanieQuiz} />
         </Router>
     );
 }

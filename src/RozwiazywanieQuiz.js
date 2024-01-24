@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-function RozwiazQuiz() {
+function RozwiazywanieQuiz() {
     const { quizId } = useParams();
     const quizData = localStorage.getItem(`quiz-${quizId}`);
     const quiz = quizData ? JSON.parse(quizData) : null;
@@ -87,4 +87,4 @@ function RozwiazQuiz() {
     );
 }
 
-export default RozwiazQuiz;
+export default  RozwiazywanieQuiz;

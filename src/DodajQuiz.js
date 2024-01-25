@@ -249,11 +249,13 @@ function DodajQuiz({ dodajQuizDoListy, idOstatniegoQuizu, listaQuizow }) {
                 </li>
             ))}
         </ul>
-        <button style={{backgroundColor: "#008000"}} onClick={handleDodajQuiz}>{quizIdState ? 'Edytuj quiz' : 'Dodaj quiz'}</button>
+
     </div>
     
 )}
-
+        <button style={{ backgroundColor: "#008000" }} onClick={handleDodajQuiz}>
+            {quizIdState ? 'Edytuj quiz' : 'Dodaj quiz'}
+        </button>
 
 
 

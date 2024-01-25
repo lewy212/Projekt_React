@@ -212,7 +212,7 @@ function DodajQuiz({ dodajQuizDoListy, idOstatniegoQuizu, listaQuizow }) {
                     </label>
                     <button onClick={handleDodajOdpowiedz}>Dodaj odpowiedź</button>
                     <button onClick={handleDodajPytanie}>Dodaj pytanie</button>
-                    <button onClick={handleDodajQuiz}>{quizIdState ? 'Edytuj quiz' : 'Dodaj quiz'}</button>
+
 
 {/*Warunek quizId, co oznacza ze jestes w trybie edycji - wow */}
 {quizId && (
@@ -249,7 +249,9 @@ function DodajQuiz({ dodajQuizDoListy, idOstatniegoQuizu, listaQuizow }) {
                 </li>
             ))}
         </ul>
+        <button style={{backgroundColor: "#008000"}} onClick={handleDodajQuiz}>{quizIdState ? 'Edytuj quiz' : 'Dodaj quiz'}</button>
     </div>
+    
 )}
 
 

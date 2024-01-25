@@ -21,6 +21,8 @@ function DodajQuiz({ dodajQuizDoListy, idOstatniegoQuizu, listaQuizow }) {
     const [bladWalidacjiQuizu, setBladWalidacjiQuizu] = useState('');
     const [quizDodany, setQuizDodany] = useState(false);
     const [quizIdState, setQuizIdState] = useState(null);
+    
+
     useEffect(() => {
         console.log(listaQuizow);
         if (quizId && listaQuizow) {
@@ -74,6 +76,55 @@ function DodajQuiz({ dodajQuizDoListy, idOstatniegoQuizu, listaQuizow }) {
         setBladWalidacjiPytania('');
         setNumerPoprawnejOdpowiedzi(null);
     };
+
+    {/* start edycji, alert? */}
+
+    const handleEdytujPytanieTekst = (e, index) => {
+        const updatedPytania = [...pytania];
+        updatedPytania[index].tresc = e.target.value;
+        setPytania(updatedPytania);
+    };
+    
+    const handleEdytujPoprawnaOdpowiedz = (pytanieIndex, odpIndex) => {
+        const updatedPytania = [...pytania];
+        updatedPytania[pytanieIndex].poprawnaOdpowiedz = odpIndex;
+        setPytania(updatedPytania);
+    };
+    
+    const handleEdytujOdpowiedzTekst = (e, pytanieIndex, odpIndex) => {
+        const updatedPytania = [...pytania];
+        updatedPytania[pytanieIndex].odpowiedzi[odpIndex].tresc = e.target.value;
+        setPytania(updatedPytania);
+    };
+    
+    const handleZapiszEdycjePytania = (index) => {
+        const updatedPytania = [...pytania];
+        setPytania(updatedPytania);
+        alert(`Pytanie ${index + 1} zostało zaktualizowane.`);
+    };
+    
+    const handleUsunOdpowiedz = (pytanieIndex, odpIndex) => {
+        const updatedPytania = [...pytania];
+        updatedPytania[pytanieIndex].odpowiedzi.splice(odpIndex, 1);
+        setPytania(updatedPytania);
+    };
+    
+    const handleZapiszEdycjeOdpowiedzi = (pytanieIndex, odpIndex) => {
+        alert(`Zapisano zmiany odpowiedzi w pytaniu ${pytanieIndex + 1}.`);
+    };
+
+    const handleDodajNowaOdpowiedz = (pytanieIndex) => {
+        const nowaOdpowiedz = new OdpowiedziClass(0, "", false);
+        const updatedPytania = [...pytania];
+        if (!updatedPytania[pytanieIndex].odpowiedzi) {
+            updatedPytania[pytanieIndex].odpowiedzi = [];
+        }
+        updatedPytania[pytanieIndex].odpowiedzi.push(nowaOdpowiedz);
+        setPytania(updatedPytania);
+    };
+    
+    
+
 
     const handleDodajQuiz = () => {
 
@@ -140,7 +191,7 @@ function DodajQuiz({ dodajQuizDoListy, idOstatniegoQuizu, listaQuizow }) {
                         </select>
                     </label>
 
-                    <h3>Dodaj pytanie</h3>
+                    <h3 style={{ marginbottom: "25px" }}>Dodaj pytanie</h3>
                     {bladWalidacjiPytania && <p style={{ color: 'red' }}>{bladWalidacjiPytania}</p>}
                     <label>
                         Treść pytania:
@@ -163,12 +214,47 @@ function DodajQuiz({ dodajQuizDoListy, idOstatniegoQuizu, listaQuizow }) {
                     <button onClick={handleDodajPytanie}>Dodaj pytanie</button>
                     <button onClick={handleDodajQuiz}>{quizIdState ? 'Edytuj quiz' : 'Dodaj quiz'}</button>
 
-                    <h3>Dodane pytania:</h3>
+{/*Warunek quizId, co oznacza ze jestes w trybie edycji - wow */}
+{quizId && (
+    <div>
+        <h3>Dodane pytania:</h3>
+        <ul>
+            {pytania.map((pytanie, pytanieIndex) => (
+                <li key={pytanieIndex}>
+                    <hr style={{ height: "5px", border: "none", backgroundColor: "black", marginTop: "75px", marginBottom: "75px" }} />
+                    <label>
+                        Treść pytania:
+                        <input type="text" value={pytanie.tresc} onChange={(e) => handleEdytujPytanieTekst(e, pytanieIndex)} />
+                    </label>
                     <ul>
-                        {pytania.map((pytanie, index) => (
-                            <li key={index}>{pytanie.tresc}</li>
+
+                        {/*
+
+                        {pytanie.odpowiedzi && pytanie.odpowiedzi.map((odp, odpIndex) => (
+                            <li key={odpIndex}>
+                                <input type="radio" name={`poprawnaOdpowiedz${pytanieIndex}`} checked={pytanie.poprawnaOdpowiedz === odpIndex} onChange={() => handleEdytujPoprawnaOdpowiedz(pytanieIndex, odpIndex)} />
+                                <label>
+                                    Odpowiedź:
+                                    <input type="text" value={odp.tresc} onChange={(e) => handleEdytujOdpowiedzTekst(e, pytanieIndex, odpIndex)} />
+                                </label>
+                                <button className="deleteButton" onClick={() => handleUsunOdpowiedz(pytanieIndex, odpIndex)}>Usuń odpowiedź</button>
+                            </li>
                         ))}
+
+                        */}
+
+                        {/*<button onClick={() => handleDodajNowaOdpowiedz(pytanieIndex)}>Dodaj nową odpowiedź</button>*/}
                     </ul>
+                    <button onClick={() => handleZapiszEdycjePytania(pytanieIndex)}>Zapisz zmiany pytania</button>
+                </li>
+            ))}
+        </ul>
+    </div>
+)}
+
+
+
+
                 </>
             )}
         </div>

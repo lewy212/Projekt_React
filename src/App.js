@@ -38,6 +38,11 @@ class App extends Component {
             listaQuizow: prevState.listaQuizow.filter(quiz => quiz.id !== id),
         }));
     }
+    dodajUseraDoListy = (user) => {
+        this.setState(prevState => ({
+            listaUserow: [...prevState.listaUserow, user],
+        }));
+    }
     render() {
         console.log(this.state.listaQuizow)
         return (

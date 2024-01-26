@@ -7,9 +7,10 @@ import DodajQuiz from "./DodajQuiz";
 import RozwiazywanieQuiz from "./RozwiazywanieQuiz";
 import WyswietlQuizy from "./WyswietlQuizy";
 import RozwiazQuiz from "./RozwiazQuiz";
+import Logowanie from "./Logowanie";
 
 
-const HeaderRouting = ({ listaQuizow, dodajQuizDoListy,usunQuizZListy }) => {
+const HeaderRouting = ({ listaQuizow, dodajQuizDoListy,usunQuizZListy,listaUserow }) => {
     const getIdOstatniegoQuizu = () => {
         if (listaQuizow.length === 0) {
             return null;
@@ -24,6 +25,7 @@ const HeaderRouting = ({ listaQuizow, dodajQuizDoListy,usunQuizZListy }) => {
             <Route exact path="/nic" render={(props) => <DodajQuiz dodajQuizDoListy={dodajQuizDoListy} idOstatniegoQuizu={getIdOstatniegoQuizu} {...props} />}/>
             {/*filip*/}
             <Route path="/quizy/:quizId" component={RozwiazywanieQuiz} />
+            <Route exact path="/logowanie"  render={() =><Logowanie listaUserow={listaUserow} />} />
 
             <Route exact path="/quizy" render={() => <WyswietlQuizy listaQuizow={listaQuizow} usunQuizZListy={usunQuizZListy} />} />
             <Route exact path="/edytuj-quiz/:quizId" render={(props) => <DodajQuiz  dodajQuizDoListy={dodajQuizDoListy} idOstatniegoQuizu={getIdOstatniegoQuizu} listaQuizow={listaQuizow} {...props} />}/>

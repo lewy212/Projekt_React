@@ -186,6 +186,7 @@ button {
 
 .navElement {
   color: white;
+  background-color: rgba(0, 0, 0, 0);
   padding: 14px 16px;
   text-decoration: none;
   font-size: 18px;
@@ -342,6 +343,69 @@ p {
 #quizContainer a {
   text-decoration: none;
   color: #2337a9;
+}
+
+/* Add these styles to your existing stylesheet */
+
+.login-container {
+  text-align: center;
+  width: 450px;
+  min-height: 200px;
+  height: min-content;
+  transform: translate(-50%, 50%);
+  border-radius: 15px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  background-color: whitesmoke;
+  position: relative;
+  top: 5%;
+  left: 50%;
+}
+
+.login-container h1 {
+  font-size: 35px;
+  color:  #2963ff;
+}
+
+.login-container label {
+  display: block;
+  font-size: 18px;
+  margin-bottom: 10px;
+  color:  #2963ff;
+}
+
+.login-container input {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  margin-bottom: 15px;
+  color: #2963ff;
+}
+
+.login-container p {
+  font-size: 30px;
+  color:  #2963ff;
+  margin: 1em 0 0.6em 0;
+}
+
+.login-container button {
+  position: relative;
+  width: 100px;
+  font-size: 16px;
+  color: #ffffff;
+  background-color: #2b3868;
+  border-radius: 3px;
+  padding: 5px;
+  align-items: center;
+  cursor: pointer;
+  border: none;
+  text-align: center;
+  margin-top: 15px;
+}
+
+.login-container button:hover {
+  background-color: #2337a9;
 }
 
 

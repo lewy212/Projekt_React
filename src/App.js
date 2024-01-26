@@ -7,6 +7,8 @@ import QuizClass from "./klasy/QuizClass";
 import PytanieClass from "./klasy/PytanieClass";
 import OdpowiedziClass from "./klasy/OdpowiedziClass";
 import WyswietlQuizy from "./WyswietlQuizy";
+import {AuthProvider} from "./AuthContext";
+import UserClass from "./klasy/UserClass";
 
 class App extends Component {
     constructor(props) {
@@ -21,6 +23,7 @@ class App extends Component {
                 new PytanieClass(2,"Najpopularniejsze zwierzę na podlasiu",[new OdpowiedziClass(5,"Lis"),new OdpowiedziClass(6,"Kogut"),
                 new OdpowiedziClass(7,"Żyrafa"),new OdpowiedziClass(8,"Dziki")],4)]),
             new QuizClass(2,"Miasta na podlasiu","Miasta",dataDodania,dataWygasniecia,[])],
+            listaUserow:[new UserClass(1,"user","user",[]),new UserClass(2,"user2","user2",[])]
         };
     }
 
@@ -39,9 +42,10 @@ class App extends Component {
         console.log(this.state.listaQuizow)
         return (
             <div>
-                <HeaderRouting listaQuizow={this.state.listaQuizow} dodajQuizDoListy={this.dodajQuizDoListy} usunQuizZListy={this.usunQuizZListy}/>
-
-                {/*<WyswietlQuizy listaQuizow={this.state.listaQuizow} />*/}
+                <AuthProvider>
+                <HeaderRouting listaQuizow={this.state.listaQuizow} dodajQuizDoListy={this.dodajQuizDoListy} usunQuizZListy={this.usunQuizZListy} listaUserow={this.state.listaUserow}/>
+                </AuthProvider>
+                    {/*<WyswietlQuizy listaQuizow={this.state.listaQuizow} />*/}
             </div>
         )}
 }

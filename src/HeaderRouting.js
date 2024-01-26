@@ -9,9 +9,11 @@ import WyswietlQuizy from "./WyswietlQuizy";
 import RozwiazQuiz from "./RozwiazQuiz";
 import Logowanie from "./Logowanie";
 import HistoriaQuizow from "./HistoriaQuizow";
+import {useAuth} from "./AuthContext";
 
 
 const HeaderRouting = ({ listaQuizow, dodajQuizDoListy,usunQuizZListy,listaUserow }) => {
+    const { loggedIn, logout } = useAuth();
     const getIdOstatniegoQuizu = () => {
         if (listaQuizow.length === 0) {
             return null;
@@ -29,7 +31,9 @@ const HeaderRouting = ({ listaQuizow, dodajQuizDoListy,usunQuizZListy,listaUsero
             <Route exact path="/logowanie"  render={() =><Logowanie listaUserow={listaUserow} />} />
             <Route exact path="/historiaQuizow" render={()=> <HistoriaQuizow listaQuizow={listaQuizow} listaUserow={listaUserow} /> } />
             <Route exact path="/quizy" render={() => <WyswietlQuizy listaQuizow={listaQuizow} usunQuizZListy={usunQuizZListy} />} />
+            {loggedIn ? (
             <Route exact path="/edytuj-quiz/:quizId" render={(props) => <DodajQuiz  dodajQuizDoListy={dodajQuizDoListy} idOstatniegoQuizu={getIdOstatniegoQuizu} listaQuizow={listaQuizow} {...props} />}/>
+                ):null}
             <Route exact path="/rozwiaz-quiz/:id" render={(props) => <RozwiazQuiz listaQuizow={listaQuizow} listaUserow={listaUserow} {...props} />} />
 
         </Router>

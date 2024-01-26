@@ -1,9 +1,11 @@
 import React from "react";
-import QuizClass from "./klasy/QuizClass";
-import RozwiazQuiz from "./RozwiazQuiz";
 import { Link } from "react-router-dom";
-const WyswietlQuizy = ({ listaQuizow,usunQuizZListy }) => {
+import { useAuth } from "./AuthContext";
+import RozwiazQuiz from "./RozwiazQuiz";
+
+const WyswietlQuizy = ({ listaQuizow, usunQuizZListy }) => {
     const [rozwiazanieQuizu, setRozwiazanieQuizu] = React.useState(null);
+    const { loggedIn } = useAuth();
 
     const handleRozwiazQuiz = (quizId) => {
         setRozwiazanieQuizu(quizId);
@@ -12,9 +14,11 @@ const WyswietlQuizy = ({ listaQuizow,usunQuizZListy }) => {
     const handleCloseRozwiazQuiz = () => {
         setRozwiazanieQuizu(null);
     };
+
     const handleUsunQuiz = (id) => {
-        usunQuizZListy(id)
+        usunQuizZListy(id);
     };
+
     return (
         <div>
             <h2 style={{ textAlign: "center", marginTop: "200px" }}>Lista Quizów</h2>
@@ -25,15 +29,22 @@ const WyswietlQuizy = ({ listaQuizow,usunQuizZListy }) => {
                         <p>Kategoria: {quiz.kategoria}</p>
                         <p>Data dodania: {quiz.dataDodaniaQuizu.toLocaleDateString()}</p>
                         <p>Data wygaśnięcia: {quiz.dataWygasnieciaQuizu.toLocaleDateString()}</p>
-                        <Link to={`/rozwiaz-quiz/${quiz.id}`}>
-                            <button>Rozwiąż Quiz</button>
-                        </Link>
-                        <button  onClick={() => handleUsunQuiz(quiz.id)} className="deleteButton">Usun <br></br>Quiz</button><br></br>
-                        <Link to={`/edytuj-quiz/${quiz.id}`}>
-                            <button className="editButton">Edytuj<br></br> Quiz</button>
-                        </Link>
-
-
+                        <div>
+                            <Link to={`/rozwiaz-quiz/${quiz.id}`}>
+                                <button>Rozwiąż Quiz</button>
+                            </Link>
+                            {loggedIn && (
+                                <>
+                                    <button onClick={() => handleUsunQuiz(quiz.id)} className="deleteButton">
+                                        Usun <br></br>Quiz
+                                    </button>
+                                    <br></br>
+                                    <Link to={`/edytuj-quiz/${quiz.id}`}>
+                                        <button className="editButton">Edytuj<br></br> Quiz</button>
+                                    </Link>
+                                </>
+                            )}
+                        </div>
                     </div>
                 ))}
             </div>

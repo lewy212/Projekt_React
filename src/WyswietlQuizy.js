@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "./AuthContext";
 import RozwiazQuiz from "./RozwiazQuiz";
@@ -6,6 +6,7 @@ import RozwiazQuiz from "./RozwiazQuiz";
 const WyswietlQuizy = ({ listaQuizow, usunQuizZListy }) => {
     const [rozwiazanieQuizu, setRozwiazanieQuizu] = React.useState(null);
     const { loggedIn } = useAuth();
+    const [searchTerm, setSearchTerm] = useState("");
 
     const handleRozwiazQuiz = (quizId) => {
         setRozwiazanieQuizu(quizId);
@@ -19,11 +20,25 @@ const WyswietlQuizy = ({ listaQuizow, usunQuizZListy }) => {
         usunQuizZListy(id);
     };
 
+    // Filtruj listę quizów na podstawie wprowadzonego tekstu
+    const filteredQuizList = listaQuizow.filter((quiz) =>
+        quiz.nazwa.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     return (
         <div>
             <h2 style={{ textAlign: "center", marginTop: "200px" }}>Lista Quizów</h2>
+            <div className="search-container">
+                {/* Pole do wprowadzania tekstu dla wyszukiwania */}
+                <input
+                    type="text"
+                    placeholder="Wyszukaj quiz..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
+            </div>
             <div className="quiz-list">
-                {listaQuizow.map((quiz) => (
+                {filteredQuizList.map((quiz) => (
                     <div key={quiz.id} className="quiz-card">
                         <h3>{quiz.nazwa}</h3>
                         <p>Kategoria: {quiz.kategoria}</p>
@@ -36,11 +51,11 @@ const WyswietlQuizy = ({ listaQuizow, usunQuizZListy }) => {
                             {loggedIn && (
                                 <>
                                     <button onClick={() => handleUsunQuiz(quiz.id)} className="deleteButton">
-                                        Usun <br></br>Quiz
+                                        Usuń <br />Quiz
                                     </button>
-                                    <br></br>
+                                    <br />
                                     <Link to={`/edytuj-quiz/${quiz.id}`}>
-                                        <button className="editButton">Edytuj<br></br> Quiz</button>
+                                        <button className="editButton">Edytuj<br /> Quiz</button>
                                     </Link>
                                 </>
                             )}

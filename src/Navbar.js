@@ -21,6 +21,11 @@ const Navbar = () => {
                 <Link to="/nic" className="navElement">
                     nic
                 </Link>
+                {loggedIn ? (
+                        <Link to="/historiaQuizow" className="navElement">
+                            Historia Quizow
+                        </Link>
+                    ) :null}
                 {!loggedIn ? (
                     <Link to="/logowanie" className="navElement">
                         Login

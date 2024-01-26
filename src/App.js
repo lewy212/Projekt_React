@@ -23,7 +23,7 @@ class App extends Component {
                 new PytanieClass(2,"Najpopularniejsze zwierzę na podlasiu",[new OdpowiedziClass(5,"Lis"),new OdpowiedziClass(6,"Kogut"),
                 new OdpowiedziClass(7,"Żyrafa"),new OdpowiedziClass(8,"Dziki")],4)]),
             new QuizClass(2,"Miasta na podlasiu","Miasta",dataDodania,dataWygasniecia,[])],
-            listaUserow:[new UserClass(1,"user","user",[]),new UserClass(2,"user2","user2",[])]
+            listaUserow:[new UserClass(1,"user","user",[1,1]),new UserClass(2,"user2","user2",[])]
         };
     }
 

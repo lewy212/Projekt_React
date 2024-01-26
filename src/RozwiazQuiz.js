@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import {questions} from "./questions";
+import {useAuth} from "./AuthContext";
 
-const RozwiazQuiz = ({ match, listaQuizow }) => {
+const RozwiazQuiz = ({ match, listaQuizow,listaUserow }) => {
     const quizId = match.params.id;
-
+    const {userId}  = useAuth();
     const [quiz, setQuiz] = React.useState(null);
     const [aktualnePytanie, setAktualnePytanie] = React.useState(0);
     const [wynik, setWynik] = React.useState(0);
@@ -27,6 +28,14 @@ const RozwiazQuiz = ({ match, listaQuizow }) => {
             setAktualnePytanie(nastepnePytanie);
         } else {
             setShowWynik(true);
+            if(userId!='')
+            {
+                const user = listaUserow.find((u) => u.id === userId);
+                user.listaIdQuizow.push(parseInt(quizId));
+                console.log(user);
+            }
+
+
         }
     };
 

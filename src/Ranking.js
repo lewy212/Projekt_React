@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import QuizClass from './klasy/QuizClass';
-import PodejscieClass from './klasy/PodejscieClass';
-import { Link } from 'react-router-dom';
-
 const Ranking = ({ quizzes }) => {
   const [selectedQuiz, setSelectedQuiz] = useState(null);
   const [expandedQuizzes, setExpandedQuizzes] = useState([]);
@@ -13,7 +10,7 @@ const Ranking = ({ quizzes }) => {
     console.log('Selected Quiz:', quiz);
     setSelectedQuiz(quiz);
   };
-  
+
   const handleToggleExpand = (quizId) => {
     setExpandedQuizzes((prevExpanded) => {
       if (prevExpanded.includes(quizId)) {
@@ -25,12 +22,22 @@ const Ranking = ({ quizzes }) => {
   };
 
   const isQuizExpanded = (quizId) => Array.isArray(expandedQuizzes) && expandedQuizzes.includes(quizId);
+  
+  const calculatePercentage = (score, total) => {
+    if (total === 0) {
+      return 0;
+    }
+    return (score / total) * 100;
+  };
 
   const calculateTotalCorrectAnswers = (podejscia) => {
     if (!podejscia || !podejscia.length) {
       return 0;
     }
-    return podejscia.reduce((sum, podejscie) => sum + podejscie.poprawne_odpowiedzi, 0);
+    const totalCorrectAnswers = podejscia.reduce((sum, podejscie) => sum + podejscie.poprawne_odpowiedzi, 0);
+    const totalAnswers = podejscia.reduce((sum, podejscie) => sum + podejscie.wszystkie_odpowiedzi, 0);
+
+    return calculatePercentage(totalCorrectAnswers, totalAnswers);
   };
 
   const handleSort = () => {
@@ -43,7 +50,7 @@ const Ranking = ({ quizzes }) => {
     const scoreA = calculateTotalCorrectAnswers(quizA.listaPodejsc || []);
     const scoreB = calculateTotalCorrectAnswers(quizB.listaPodejsc || []);
 
-    if (sortDirection === 'asc') {
+    if (sortDirection === 'desc') {
       return scoreA - scoreB;
     } else {
       return scoreB - scoreA;
@@ -67,8 +74,8 @@ const Ranking = ({ quizzes }) => {
 
               <h3>{quiz.nazwa}</h3>
               <p>Kategoria: {quiz.kategoria}</p>
-              <p>Wynik procentowy: {calculateTotalCorrectAnswers(quiz.listaPodejsc || [])}</p>
-              <p>Liczba podejsc: {calculateTotalCorrectAnswers(quiz.listaPodejsc || [])}</p>
+              <p>Wynik procentowy: {calculateTotalCorrectAnswers(quiz.listaPodejsc || 0).toFixed(2)}%</p>
+              <p>Liczba podejsc: {quiz.listaPodejsc.length}</p>
               <div>
                 <button onClick={() => handleToggleExpand(quiz.id)}>
                   {isQuizExpanded(quiz.id) ? 'Zwiń' : 'Rozwiń'} Podejścia
@@ -78,7 +85,7 @@ const Ranking = ({ quizzes }) => {
                 <ul>
                   {quiz.listaPodejsc.map((podejscie) => (
                     <li key={podejscie.id}>
-                      Użytkownik: {podejscie.uzytkownik && podejscie.uzytkownik.nick}, Poprawne odpowiedzi: {podejscie.poprawne_odpowiedzi}\{podejscie.wszystkie_odpowiedzi}
+                      Użytkownik: {podejscie.uzytkownik.nick}, Odpowiedzi: {podejscie.poprawne_odpowiedzi}\{podejscie.wszystkie_odpowiedzi}
                     </li>
                   ))}
                 </ul>

@@ -43,20 +43,19 @@ const RozwiazQuiz = ({ match, listaQuizow, listaUserow }) => {
     };
     const handleDodajPodejscie = () => {
         if (quiz) {
-            // Check if the user already attempted this quiz
-            const userAttemptedQuiz = quiz.listaPodejsc.some(attempt => attempt.uzytkownik === userId);
-            
-            if (!userAttemptedQuiz) {
-                const newAttempt = new PodejscieClass({
-                    id: quiz.listaPodejsc.length + 1, // Ensure unique ID
-                    uzytkownik: userId,
-                    poprawne_odpowiedzi: wynik,
-                    wszystkie_odpowiedzi: quiz.listaPytan.length,
-                });
-    
-                quiz.listaPodejsc.push(newAttempt);
-                console.log(quiz); // Check the updated quiz object
-            }
+
+            const newAttempt = new PodejscieClass(
+                quiz.listaPodejsc.length + 1, // Ensure unique ID
+                userId,
+                wynik,
+                quiz.listaPytan.length,
+            );
+
+            // Update state using setQuiz function
+            quiz.listaPodejsc.push(newAttempt)
+
+            console.log(quiz); // Check the updated quiz object
+
         }
     };
 

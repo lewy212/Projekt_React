@@ -7,12 +7,13 @@ import { Link } from 'react-router-dom';
 const Ranking = ({ quizzes }) => {
   const [selectedQuiz, setSelectedQuiz] = useState(null);
   const [expandedQuizzes, setExpandedQuizzes] = useState([]);
-  const [sortDirection, setSortDirection] = useState('asc'); // Nowy stan dla kierunku sortowania
+  const [sortDirection, setSortDirection] = useState('asc');
 
   const handleClick = (quiz) => {
+    console.log('Selected Quiz:', quiz);
     setSelectedQuiz(quiz);
   };
-
+  
   const handleToggleExpand = (quizId) => {
     setExpandedQuizzes((prevExpanded) => {
       if (prevExpanded.includes(quizId)) {
@@ -23,7 +24,7 @@ const Ranking = ({ quizzes }) => {
     });
   };
 
-  const isQuizExpanded = (quizId) => expandedQuizzes.includes(quizId);
+  const isQuizExpanded = (quizId) => Array.isArray(expandedQuizzes) && expandedQuizzes.includes(quizId);
 
   const calculateTotalCorrectAnswers = (podejscia) => {
     if (!podejscia || !podejscia.length) {
@@ -53,7 +54,7 @@ const Ranking = ({ quizzes }) => {
     <div>
       <h2 style={{ textAlign: 'center', marginTop: '150px' }}>Ranking Quizów</h2>
       <h2 style={{ textAlign: 'center' }}>(Quizy posortowane w zależności od poprawności odpowiedzi)</h2>
-      <h2 style={{ textAlign: 'center'}}>
+      <h2 style={{ textAlign: 'center' }}>
         <button onClick={handleSort}>
           Sortuj {sortDirection === 'asc' ? 'rosnąco' : 'malejąco'}
         </button>
@@ -66,17 +67,18 @@ const Ranking = ({ quizzes }) => {
 
               <h3>{quiz.nazwa}</h3>
               <p>Kategoria: {quiz.kategoria}</p>
-              <p>Suma poprawnych odpowiedzi: {calculateTotalCorrectAnswers(quiz.listaPodejsc || [])}</p>
+              <p>Wynik procentowy: {calculateTotalCorrectAnswers(quiz.listaPodejsc || [])}</p>
+              <p>Liczba podejsc: {calculateTotalCorrectAnswers(quiz.listaPodejsc || [])}</p>
               <div>
                 <button onClick={() => handleToggleExpand(quiz.id)}>
-                  {isQuizExpanded(quiz.id) ? 'Collapse' : 'Expand'} Podejścia
+                  {isQuizExpanded(quiz.id) ? 'Zwiń' : 'Rozwiń'} Podejścia
                 </button>
               </div>
               {isQuizExpanded(quiz.id) && quiz.listaPodejsc && (
                 <ul>
                   {quiz.listaPodejsc.map((podejscie) => (
                     <li key={podejscie.id}>
-                      Użytkownik: {podejscie.uzytkownik.nick}, Poprawne odpowiedzi: {podejscie.poprawne_odpowiedzi}
+                      Użytkownik: {podejscie.uzytkownik && podejscie.uzytkownik.nick}, Poprawne odpowiedzi: {podejscie.poprawne_odpowiedzi}\{podejscie.wszystkie_odpowiedzi}
                     </li>
                   ))}
                 </ul>
@@ -91,7 +93,7 @@ const Ranking = ({ quizzes }) => {
           <ul>
             {selectedQuiz.listaPodejsc.map((podejscie) => (
               <li key={podejscie.id}>
-                Użytkownik: {podejscie.uzytkownik.nick}, Poprawne odpowiedzi: {podejscie.poprawne_odpowiedzi}
+                Użytkownik: {podejscie.uzytkownik?.nick || 'Brak'}, Poprawne odpowiedzi: {podejscie.poprawne_odpowiedzi || 0} / {podejscie.wszystkie_odpowiedzi || 0}
               </li>
             ))}
           </ul>

@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useAuth } from "./AuthContext";
-import QuizClass from "./klasy/QuizClass";
-import PodejscieClass from "./klasy/PodejscieClass";
+import PodejscieClass from './klasy/PodejscieClass';
 
 const RozwiazQuiz = ({ match, listaQuizow, listaUserow }) => {
     const quizId = match.params.id;
@@ -11,10 +10,18 @@ const RozwiazQuiz = ({ match, listaQuizow, listaUserow }) => {
     const [wynik, setWynik] = React.useState(0);
     const [showWynik, setShowWynik] = React.useState(false);
 
+
     useEffect(() => {
         const aktualnyQuiz = listaQuizow.find((quiz) => quiz.id === parseInt(quizId));
         setQuiz(aktualnyQuiz);
+
     }, [quizId, listaQuizow]);
+
+    useEffect(() => {
+        if (showWynik) {
+            handleDodajPodejscie();
+        }
+    }, [showWynik]);
 
     const handleClick = (wybranaOdpowiedz) => {
         const isCorrect = wybranaOdpowiedz === quiz.listaPytan[aktualnePytanie].numerPoprawnejOdpowiedzi;
@@ -27,23 +34,28 @@ const RozwiazQuiz = ({ match, listaQuizow, listaUserow }) => {
             setAktualnePytanie(nastepnePytanie);
         } else {
             setShowWynik(true);
-            if (userId !== "") {
-                // Create an instance of PodejscieClass
-                const newAttempt = new PodejscieClass({
-                    id: new Date().getTime(),
-                    uzytkownik: userId,
-                    poprawne_odpowiedzi: wynik,
-                    suma_odpowiedzi: quiz.listaPytan.length,
-                });
-
-                // Add the new attempt to the quiz's listaPodejsc
-                setQuiz((prevQuiz) => ({
-                    ...prevQuiz,
-                    listaPodejsc: [...prevQuiz.listaPodejsc, newAttempt],
-                }));
-
+            if (userId != '') {
                 const user = listaUserow.find((u) => u.id === userId);
                 user.listaIdQuizow.push(parseInt(quizId));
+                console.log(user);
+            }
+        }
+    };
+    const handleDodajPodejscie = () => {
+        if (quiz) {
+            // Check if the user already attempted this quiz
+            const userAttemptedQuiz = quiz.listaPodejsc.some(attempt => attempt.uzytkownik === userId);
+            
+            if (!userAttemptedQuiz) {
+                const newAttempt = new PodejscieClass({
+                    id: quiz.listaPodejsc.length + 1, // Ensure unique ID
+                    uzytkownik: userId,
+                    poprawne_odpowiedzi: wynik,
+                    wszystkie_odpowiedzi: quiz.listaPytan.length,
+                });
+    
+                quiz.listaPodejsc.push(newAttempt);
+                console.log(quiz); // Check the updated quiz object
             }
         }
     };
@@ -80,7 +92,9 @@ const RozwiazQuiz = ({ match, listaQuizow, listaUserow }) => {
                         </div>
                     ) : (
                         <h3 style={{ color: "red" }}>Quiz nie ma pytan</h3>
-                    )}
+                    )
+                    }
+
                 </>
             ) : (
                 <p>Loading...</p>

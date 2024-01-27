@@ -18,8 +18,11 @@ const Navbar = () => {
                 <Link to="/quizy" className="navElement">
                     Quizy
                 </Link>
+                <Link to="/ranking" className="navElement">
+                    Ranking
+                </Link>
                 <Link to="/nic" className="navElement">
-                    nic
+                    Dodaj Quiz
                 </Link>
                 {loggedIn ? (
                         <Link to="/historiaQuizow" className="navElement">

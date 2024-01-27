@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from "react";
-import {questions} from "./questions";
-import {useAuth} from "./AuthContext";
+import { useAuth } from "./AuthContext";
+import QuizClass from "./klasy/QuizClass";
+import PodejscieClass from "./klasy/PodejscieClass";
 
-const RozwiazQuiz = ({ match, listaQuizow,listaUserow }) => {
+const RozwiazQuiz = ({ match, listaQuizow, listaUserow }) => {
     const quizId = match.params.id;
-    const {userId}  = useAuth();
+    const { userId } = useAuth();
     const [quiz, setQuiz] = React.useState(null);
     const [aktualnePytanie, setAktualnePytanie] = React.useState(0);
     const [wynik, setWynik] = React.useState(0);
     const [showWynik, setShowWynik] = React.useState(false);
 
-
     useEffect(() => {
-
         const aktualnyQuiz = listaQuizow.find((quiz) => quiz.id === parseInt(quizId));
         setQuiz(aktualnyQuiz);
     }, [quizId, listaQuizow]);
@@ -28,24 +27,33 @@ const RozwiazQuiz = ({ match, listaQuizow,listaUserow }) => {
             setAktualnePytanie(nastepnePytanie);
         } else {
             setShowWynik(true);
-            if(userId!='')
-            {
+            if (userId !== "") {
+                // Create an instance of PodejscieClass
+                const newAttempt = new PodejscieClass({
+                    id: new Date().getTime(),
+                    uzytkownik: userId,
+                    poprawne_odpowiedzi: wynik,
+                    suma_odpowiedzi: quiz.listaPytan.length,
+                });
+
+                // Add the new attempt to the quiz's listaPodejsc
+                setQuiz((prevQuiz) => ({
+                    ...prevQuiz,
+                    listaPodejsc: [...prevQuiz.listaPodejsc, newAttempt],
+                }));
+
                 const user = listaUserow.find((u) => u.id === userId);
                 user.listaIdQuizow.push(parseInt(quizId));
-                console.log(user);
             }
-
-
         }
     };
-
 
     return (
         <div style={{ textAlign: "center", marginTop: "200px" }}>
             {quiz ? (
                 <>
                     <h2>Rozwiązanie Quizu {quiz.id}</h2>
-                    {quiz.listaPytan.length>0 ?(
+                    {quiz.listaPytan.length > 0 ? (
                         <div className="app">
                             {showWynik ? (
                                 <section className="showScore-section">
@@ -61,8 +69,8 @@ const RozwiazQuiz = ({ match, listaQuizow,listaUserow }) => {
                                     </section>
 
                                     <section className="answer-section">
-                                        {quiz.listaPytan[aktualnePytanie].listaOdpowiedzi.map((odpowiedz,index) => (
-                                            <button className="btn" onClick={() => handleClick(index+1)}>
+                                        {quiz.listaPytan[aktualnePytanie].listaOdpowiedzi.map((odpowiedz, index) => (
+                                            <button key={index} className="btn" onClick={() => handleClick(index + 1)}>
                                                 {odpowiedz.tresc}
                                             </button>
                                         ))}
@@ -70,11 +78,9 @@ const RozwiazQuiz = ({ match, listaQuizow,listaUserow }) => {
                                 </>
                             )}
                         </div>
-                        ) : (
-                            <h3 style={{ color:"red"}}>Quiz nie ma pytan</h3>
-                    )
-                    }
-
+                    ) : (
+                        <h3 style={{ color: "red" }}>Quiz nie ma pytan</h3>
+                    )}
                 </>
             ) : (
                 <p>Loading...</p>

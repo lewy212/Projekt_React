@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Navbar from "./Navbar";
 import PrzykladowyQuiz from "./PrzykladowyQuiz";
 
+import Ranking from "./Ranking";
 import DodajQuiz from "./DodajQuiz";
 import RozwiazywanieQuiz from "./RozwiazywanieQuiz";
 import WyswietlQuizy from "./WyswietlQuizy";
@@ -24,7 +25,7 @@ const HeaderRouting = ({ listaQuizow, dodajQuizDoListy,usunQuizZListy,listaUsero
         <Router>
             <Navbar />
             <Route exact path="/" component={PrzykladowyQuiz} />
-
+            <Route exact path="/ranking" render={() => <Ranking quizzes={listaQuizow} />} />
             <Route exact path="/nic" render={(props) => <DodajQuiz dodajQuizDoListy={dodajQuizDoListy} idOstatniegoQuizu={getIdOstatniegoQuizu} {...props} />}/>
             {/*filip*/}
             <Route path="/quizy/:quizId" component={RozwiazywanieQuiz} />

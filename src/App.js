@@ -15,7 +15,7 @@ class App extends Component {
         super(props);
         const dataDodania = new Date();
         const dataWygasniecia = new Date();
-        dataWygasniecia.setDate(dataDodania.getDate() + 7)
+        dataWygasniecia.setDate(dataDodania.getDate() + 2)
         this.state = {
             listaQuizow: [new QuizClass(1,"Zwierzęta na podlasiu","Zwierzęta",dataDodania,dataWygasniecia,
                 [new PytanieClass(1,"Ktore z tych zwierzat jest pod ochrona",[new OdpowiedziClass(1,"Wilk"),

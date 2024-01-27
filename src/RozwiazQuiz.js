@@ -43,10 +43,10 @@ const RozwiazQuiz = ({ match, listaQuizow, listaUserow }) => {
     };
     const handleDodajPodejscie = () => {
         if (quiz) {
-
+            const user = listaUserow.find((u) => u.id === userId);
             const newAttempt = new PodejscieClass(
                 quiz.listaPodejsc.length + 1, // Ensure unique ID
-                userId,
+                user,
                 wynik,
                 quiz.listaPytan.length,
             );

@@ -75,7 +75,7 @@ const Ranking = ({ quizzes }) => {
               <h3>{quiz.nazwa}</h3>
               <p>Kategoria: {quiz.kategoria}</p>
               <p>Wynik procentowy: {calculateTotalCorrectAnswers(quiz.listaPodejsc || 0).toFixed(2)}%</p>
-              <p>Liczba podejsc: {quiz.listaPodejsc.length}</p>
+              <p>Liczba podejść: {quiz.listaPodejsc.length}</p>
               <div>
                 <button onClick={() => handleToggleExpand(quiz.id)}>
                   {isQuizExpanded(quiz.id) ? 'Zwiń' : 'Rozwiń'} Podejścia

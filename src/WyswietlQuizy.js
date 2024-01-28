@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "./AuthContext";
 import RozwiazQuiz from "./RozwiazQuiz";
@@ -7,6 +7,20 @@ const WyswietlQuizy = ({ listaQuizow, usunQuizZListy }) => {
     const [rozwiazanieQuizu, setRozwiazanieQuizu] = React.useState(null);
     const { loggedIn } = useAuth();
     const [searchTerm, setSearchTerm] = useState("");
+
+    const checkAndRemoveExpiredQuizzes = () => {
+        const currentDate = new Date();
+        const updatedQuizList = listaQuizow.filter((quiz) => quiz.dataWygasnieciaQuizu < currentDate);
+
+        updatedQuizList.forEach((quiz) => {
+            usunQuizZListy(quiz.id);
+        });
+    };
+
+    useEffect(() => {
+        // Sprawdź i usuń wygasłe quizy przy montowaniu komponentu
+        checkAndRemoveExpiredQuizzes();
+    }, [listaQuizow, usunQuizZListy]);
 
     const handleRozwiazQuiz = (quizId) => {
         setRozwiazanieQuizu(quizId);
@@ -29,7 +43,6 @@ const WyswietlQuizy = ({ listaQuizow, usunQuizZListy }) => {
         <div>
             <h2 style={{ textAlign: "center", marginTop: "200px" }}>Lista Quizów</h2>
             <div className="search-container">
-                {/* Pole do wprowadzania tekstu dla wyszukiwania */}
                 <input
                     type="text"
                     placeholder="Wyszukaj quiz..."

@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import {questions} from "./questions";
-import {useAuth} from "./AuthContext";
+import React, { useEffect } from "react";
+import { useAuth } from "./AuthContext";
+import PodejscieClass from './klasy/PodejscieClass';
 
-const RozwiazQuiz = ({ match, listaQuizow,listaUserow }) => {
+const RozwiazQuiz = ({ match, listaQuizow, listaUserow }) => {
     const quizId = match.params.id;
-    const {userId}  = useAuth();
+    const { userId } = useAuth();
     const [quiz, setQuiz] = React.useState(null);
     const [aktualnePytanie, setAktualnePytanie] = React.useState(0);
     const [wynik, setWynik] = React.useState(0);
@@ -12,10 +12,16 @@ const RozwiazQuiz = ({ match, listaQuizow,listaUserow }) => {
 
 
     useEffect(() => {
-
         const aktualnyQuiz = listaQuizow.find((quiz) => quiz.id === parseInt(quizId));
         setQuiz(aktualnyQuiz);
+
     }, [quizId, listaQuizow]);
+
+    useEffect(() => {
+        if (showWynik) {
+            handleDodajPodejscie();
+        }
+    }, [showWynik]);
 
     const handleClick = (wybranaOdpowiedz) => {
         const isCorrect = wybranaOdpowiedz === quiz.listaPytan[aktualnePytanie].numerPoprawnejOdpowiedzi;
@@ -28,24 +34,37 @@ const RozwiazQuiz = ({ match, listaQuizow,listaUserow }) => {
             setAktualnePytanie(nastepnePytanie);
         } else {
             setShowWynik(true);
-            if(userId!='')
-            {
+            if (userId != '') {
                 const user = listaUserow.find((u) => u.id === userId);
                 user.listaIdQuizow.push(parseInt(quizId));
                 console.log(user);
             }
+        }
+    };
+    const handleDodajPodejscie = () => {
+        if (quiz) {
+            const user = listaUserow.find((u) => u.id === userId);
+            const newAttempt = new PodejscieClass(
+                quiz.listaPodejsc.length + 1, // Ensure unique ID
+                user,
+                wynik,
+                quiz.listaPytan.length,
+            );
 
+            // Update state using setQuiz function
+            quiz.listaPodejsc.push(newAttempt)
+
+            console.log(quiz); // Check the updated quiz object
 
         }
     };
-
 
     return (
         <div style={{ textAlign: "center", marginTop: "200px" }}>
             {quiz ? (
                 <>
                     <h2>Rozwiązanie Quizu {quiz.id}</h2>
-                    {quiz.listaPytan.length>0 ?(
+                    {quiz.listaPytan.length > 0 ? (
                         <div className="app">
                             {showWynik ? (
                                 <section className="showScore-section">
@@ -61,8 +80,8 @@ const RozwiazQuiz = ({ match, listaQuizow,listaUserow }) => {
                                     </section>
 
                                     <section className="answer-section">
-                                        {quiz.listaPytan[aktualnePytanie].listaOdpowiedzi.map((odpowiedz,index) => (
-                                            <button className="btn" onClick={() => handleClick(index+1)}>
+                                        {quiz.listaPytan[aktualnePytanie].listaOdpowiedzi.map((odpowiedz, index) => (
+                                            <button key={index} className="btn" onClick={() => handleClick(index + 1)}>
                                                 {odpowiedz.tresc}
                                             </button>
                                         ))}
@@ -70,8 +89,8 @@ const RozwiazQuiz = ({ match, listaQuizow,listaUserow }) => {
                                 </>
                             )}
                         </div>
-                        ) : (
-                            <h3 style={{ color:"red"}}>Quiz nie ma pytan</h3>
+                    ) : (
+                        <h3 style={{ color: "red" }}>Quiz nie ma pytan</h3>
                     )
                     }
 

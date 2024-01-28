@@ -286,7 +286,7 @@ p {
 #quizContainer label {
   display: block;
   font-size: 18px;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
 }
 #quizContainer select {
   width: 100%;
@@ -394,3 +394,9 @@ input[type=radio] {
 	}
 }
 */
+
+.pytanieHeader{
+  color: red;
+  margin-top: 80px;
+  margin-bottom: 50px;
+}

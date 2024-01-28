@@ -148,8 +148,33 @@ function DodajQuiz({ dodajQuizDoListy, idOstatniegoQuizu, listaQuizow }) {
     };
     
     const handleZapiszEdycjeOdpowiedzi = (pytanieIndex, odpIndex) => {
-        alert(`Zapisano zmiany odpowiedzi w pytaniu ${pytanieIndex + 1}.`);
-    };
+        const updatedPytania = pytania.map((pytanie, index) => {
+          if (index === pytanieIndex) {
+            const updatedOdpowiedzi = pytanie.odpowiedzi.map((odpowiedz, i) => {
+              if (i === odpIndex) {
+                return new OdpowiedziClass(odpowiedz.id, odpowiedz.tresc, odpowiedz.czyPrawidlowa);
+              }
+              return odpowiedz;
+            });
+            return new PytanieClass(pytanie.id, pytanie.tresc, updatedOdpowiedzi, pytanie.poprawnaOdpowiedz);
+          }
+          return pytanie;
+        });
+      
+        setPytania(updatedPytania);
+      
+        // Aktualizacja quizu w globalnym stanie lub bazie danych
+        const quizDoAktualizacji = listaQuizow.find(quiz => quiz.id === quizIdState);
+        if (quizDoAktualizacji) {
+          quizDoAktualizacji.listaPytan = updatedPytania;
+          dodajQuizDoListy([...listaQuizow.filter(quiz => quiz.id !== quizIdState), quizDoAktualizacji]);
+          alert(`Zmiany w odpowiedziach pytania ${pytanieIndex + 1} zostały zapisane.`);
+        } else {
+          alert('Błąd przy zapisywaniu zmian w odpowiedziach.');
+        }
+      };
+      
+    
 
     const handleDodajNowaOdpowiedz = (pytanieIndex) => {
         const nowaOdpowiedz = new OdpowiedziClass(0, "", false);
@@ -272,6 +297,7 @@ function DodajQuiz({ dodajQuizDoListy, idOstatniegoQuizu, listaQuizow }) {
                                         <input type="text" value={odp.tresc} onChange={(e) => handleEdytujOdpowiedzTekst(e, pytanieIndex, odpIndex)} />
                                         <input type="radio" name={`poprawnaOdpowiedz${pytanieIndex}`} checked={pytanie.poprawnaOdpowiedz === odpIndex} onChange={() => handleEdytujPoprawnaOdpowiedz(pytanieIndex, odpIndex)} />
                                     </label>
+                                    <button onClick={() => handleZapiszEdycjeOdpowiedzi(pytanieIndex, odpIndex)}>Zapisz zmiany odpowiedzi</button>
                                 </li>
                             ))
                         ) : (

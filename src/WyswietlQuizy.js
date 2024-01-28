@@ -23,8 +23,8 @@ const WyswietlQuizy = ({ listaQuizow,usunQuizZListy }) => {
                     <div key={quiz.id} className="quiz-card">
                         <h3>{quiz.nazwa}</h3>
                         <p>Kategoria: {quiz.kategoria}</p>
-                        <p>Data dodania: {quiz.dataDodaniaQuizu.toLocaleDateString()}</p>
-                        <p>Data wygaśnięcia: {quiz.dataWygasnieciaQuizu.toLocaleDateString()}</p>
+                        <p>Data dodania: {quiz.dataDodaniaQuizu ? quiz.dataDodaniaQuizu.toLocaleDateString() : 'Brak daty'}</p>
+                        <p>Data wygaśnięcia: {quiz.dataWygasnieciaQuizu ? quiz.dataWygasnieciaQuizu.toLocaleDateString() : 'Brak daty'}</p>
                         <Link to={`/rozwiaz-quiz/${quiz.id}`}>
                             <button>Rozwiąż Quiz</button>
                         </Link>

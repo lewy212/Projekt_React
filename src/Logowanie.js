@@ -1,4 +1,3 @@
-// Logowanie.js
 import React, { useState } from 'react';
 import { useAuth } from './AuthContext';
 
@@ -6,7 +5,8 @@ const Logowanie = ({ listaUserow }) => {
     const { loggedIn, username, userId, login, logout, setAuthUsername } = useAuth();
     const [password, setPassword] = useState('');
 
-    const handleLogin = () => {
+    const handleLogin = (e) => {
+        e.preventDefault();
         listaUserow.forEach((user) => {
             if (user.nick === username && user.haslo === password) {
                 login(user.nick, user.id);
@@ -18,12 +18,6 @@ const Logowanie = ({ listaUserow }) => {
 
     const handleLogout = () => {
         logout();
-    };
-
-    const handleKeyPress = (e) => {
-        if (e.key === 'Enter') {
-            handleLogin();
-        }
     };
 
     return (
@@ -40,29 +34,31 @@ const Logowanie = ({ listaUserow }) => {
             ) : (
                 <>
                     <h1 className="header-styled-h1">Logowanie</h1>
-                    <label>
-                        Nazwa użytkownika:
-                        <input
-                            className="text-styled"
-                            type="text"
-                            value={username}
-                            onChange={(e) => setAuthUsername(e.target.value)}
-                            onKeyPress={handleKeyPress}
-                        />
-                    </label>
-                    <label>
-                        Hasło:
-                        <input
-                            className="text-styled"
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            onKeyPress={handleKeyPress}
-                        />
-                    </label>
-                    <button className="btn" onClick={handleLogin}>
-                        Zaloguj
-                    </button>
+                    <form onSubmit={handleLogin}>
+                        <label>
+                            Nazwa użytkownika:
+                            <input
+                                className="text-styled"
+                                type="text"
+                                value={username}
+                                onChange={(e) => setAuthUsername(e.target.value)}
+                                autoComplete="username"
+                            />
+                        </label>
+                        <label>
+                            Hasło:
+                            <input
+                                className="text-styled"
+                                type="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                autoComplete="current-password"
+                            />
+                        </label>
+                        <button type="submit" className="btn">
+                            Zaloguj
+                        </button>
+                    </form>
                 </>
             )}
         </div>

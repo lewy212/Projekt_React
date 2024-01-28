@@ -68,14 +68,15 @@ function DodajQuiz({ dodajQuizDoListy, idOstatniegoQuizu, listaQuizow }) {
             setBladWalidacjiPytania('Uzupełnij pytanie (min:5, max:30, zaznaczona odpowiedz, zaczyna sie wielka litera, min 2 odpowiedzi)');
             return;
         }
-
-        const nowePytanie = new PytanieClass(pytania.length, pytanieTekst, odpowiedzi, numerPoprawnejOdpowiedzi);
+    
+        const nowePytanie = new PytanieClass(pytania.length, pytanieTekst, [...odpowiedzi], numerPoprawnejOdpowiedzi);
         setPytania([...pytania, nowePytanie]);
         setPytanieTekst('');
-        setOdpowiedzi([]);
+        setOdpowiedzi([]); // To jest poprawne, ponieważ chcesz zresetować formularz odpowiedzi
         setBladWalidacjiPytania('');
         setNumerPoprawnejOdpowiedzi(null);
     };
+    
 
     {/* start edycji, alert? */}
 
@@ -216,43 +217,40 @@ function DodajQuiz({ dodajQuizDoListy, idOstatniegoQuizu, listaQuizow }) {
 
 {/*Warunek quizId, co oznacza ze jestes w trybie edycji - wow */}
 {quizId && (
-    <div>
-        <h3>Dodane pytania:</h3>
-        <ul>
-            {pytania.map((pytanie, pytanieIndex) => (
-                <li key={pytanieIndex}>
-                    <hr style={{ height: "5px", border: "none", backgroundColor: "black", marginTop: "75px", marginBottom: "75px" }} />
-                    <label>
-                        Treść pytania:
-                        <input type="text" value={pytanie.tresc} onChange={(e) => handleEdytujPytanieTekst(e, pytanieIndex)} />
-                    </label>
+                <div>
+                    <h3>Dodane pytania:</h3>
                     <ul>
-
-                        {/*
-
-                        {pytanie.odpowiedzi && pytanie.odpowiedzi.map((odp, odpIndex) => (
-                            <li key={odpIndex}>
-                                <input type="radio" name={`poprawnaOdpowiedz${pytanieIndex}`} checked={pytanie.poprawnaOdpowiedz === odpIndex} onChange={() => handleEdytujPoprawnaOdpowiedz(pytanieIndex, odpIndex)} />
+                        {pytania.map((pytanie, pytanieIndex) => (
+                            <li key={pytanieIndex}>
                                 <label>
-                                    Odpowiedź:
-                                    <input type="text" value={odp.tresc} onChange={(e) => handleEdytujOdpowiedzTekst(e, pytanieIndex, odpIndex)} />
+                                    Pytanie {pytanieIndex + 1}:
+                                    <input type="text" value={pytanie.tresc} onChange={(e) => handleEdytujPytanieTekst(e, pytanieIndex)} />
                                 </label>
-                                <button className="deleteButton" onClick={() => handleUsunOdpowiedz(pytanieIndex, odpIndex)}>Usuń odpowiedź</button>
+                                <ul>
+                                    {pytanie.odpowiedzi && pytanie.odpowiedzi.length > 0 ? (
+                                        pytanie.odpowiedzi.map((odp, odpIndex) => (
+                                            <li key={`odp-${pytanieIndex}-${odpIndex}`}>
+                                                <label>
+                                                    Odpowiedź {odpIndex + 1}:
+                                                    <input type="text" value={odp.tresc} onChange={(e) => handleEdytujOdpowiedzTekst(e, pytanieIndex, odpIndex)} />
+                                                    <input type="radio" name={`poprawnaOdpowiedz${pytanieIndex}`} checked={pytanie.poprawnaOdpowiedz === odpIndex} onChange={() => handleEdytujPoprawnaOdpowiedz(pytanieIndex, odpIndex)} />
+                                                </label>
+                                            </li>
+                                        ))
+                                    ) : (
+                                        <p>Brak odpowiedzi. Dodaj odpowiedzi do tego pytania.</p>
+                                    )}
+                                </ul>
+                                <button onClick={() => handleZapiszEdycjePytania(pytanieIndex)}>Zapisz zmiany pytania</button>
                             </li>
                         ))}
-
-                        */}
-
-                        {/*<button onClick={() => handleDodajNowaOdpowiedz(pytanieIndex)}>Dodaj nową odpowiedź</button>*/}
                     </ul>
-                    <button onClick={() => handleZapiszEdycjePytania(pytanieIndex)}>Zapisz zmiany pytania</button>
-                </li>
-            ))}
-        </ul>
+                </div>
+            )}
 
-    </div>
-    
-)}
+
+
+
         <button style={{ backgroundColor: "#008000" }} onClick={handleDodajQuiz}>
             {quizIdState ? 'Edytuj quiz' : 'Dodaj quiz'}
         </button>

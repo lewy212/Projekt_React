@@ -23,7 +23,7 @@ function DodajQuiz({ dodajQuizDoListy, idOstatniegoQuizu, listaQuizow }) {
     const [dataWygasnieciaNowegoQuizu, setDataWygasnieciaNowegoQuizu] = useState(new Date());
     const [dataWygasnieciaEdytowanegoQuizu, setDataWygasnieciaEdytowanegoQuizu] = useState(new Date());
     const [aktualnaDataWygasniecia, setAktualnaDataWygasniecia] = useState(new Date());
-    
+
     useEffect(() => {
         if (quizId && listaQuizow) {
             const quizDoEdycji = listaQuizow.find((quiz) => quiz.id === parseInt(quizId));
@@ -197,6 +197,8 @@ function DodajQuiz({ dodajQuizDoListy, idOstatniegoQuizu, listaQuizow }) {
             return;
         }
 
+        const dataWygasniecia = quizIdState ? dataWygasnieciaEdytowanegoQuizu : dataWygasnieciaNowegoQuizu;
+
         if (quizIdState) {
             // Edycja istniejącego quizu
             const quizDoEdycji = listaQuizow.find((quiz) => quiz.id === quizIdState);
@@ -204,20 +206,21 @@ function DodajQuiz({ dodajQuizDoListy, idOstatniegoQuizu, listaQuizow }) {
                 quizDoEdycji.nazwa = nazwa;
                 quizDoEdycji.kategoria = kategoria;
                 quizDoEdycji.listaPytan = pytania;
-                quizDoEdycji.dataWygasniecia = dataWygasnieciaEdytowanegoQuizu;
+                quizDoEdycji.dataWygasniecia = dataWygasniecia;
                 setQuizDodany(true);
             }
         } else {
+            // Dodawanie nowego quizu
             const noweId = idOstatniegoQuizu() + 1;
             setQuizIdState(noweId);
             const dataDodania = new Date();
-            const nowyQuiz = new QuizClass(noweId, nazwa, kategoria, dataDodania, dataWygasnieciaNowegoQuizu, pytania);
+            const nowyQuiz = new QuizClass(noweId, nazwa, kategoria, dataDodania, dataWygasniecia, pytania);
+            nowyQuiz.dataWygasniecia = dataWygasniecia;
             dodajQuizDoListy(nowyQuiz);
             setBladWalidacjiQuizu('');
             setQuizDodany(true);
         }
     };
-
     if (quizDodany) {
         return <Redirect to="/quizy" />;
     }

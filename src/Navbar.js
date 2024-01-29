@@ -35,15 +35,7 @@ const Navbar = () => {
                             Historia Quizow
                         </Link>
                     ) :null}
-                {!loggedIn ? (
-                    <Link to="/logowanie" className="navElement">
-                        Login
-                    </Link>
-                ) : (
-                    <button onClick={handleLogout} className="navElement">
-                        Logout
-                    </button>
-                )}
+
                 {!loggedIn ? (
                     <Link to="/zarejestruj" className="navElement">
                         Zarejestruj sie
@@ -54,6 +46,15 @@ const Navbar = () => {
                         Wyswietl profil
                     </Link>
                 ) : null}
+                {!loggedIn ? (
+                    <Link to="/logowanie" className="navElement">
+                        Login
+                    </Link>
+                ) : (
+                    <button onClick={handleLogout} className="navElement">
+                        Logout
+                    </button>
+                )}
             </div>
         </div>
     );

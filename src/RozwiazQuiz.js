@@ -46,16 +46,14 @@ const RozwiazQuiz = ({ match, listaQuizow, listaUserow }) => {
             const user = listaUserow.find((u) => u.id === userId);
             if(user){
                 const newAttempt = new PodejscieClass(
-                    quiz.listaPodejsc.length + 1, // Ensure unique ID
+                    quiz.listaPodejsc.length + 1,
                     user,
                     wynik,
                     quiz.listaPytan.length,
                 );
-
-                // Update state using setQuiz function
                 quiz.listaPodejsc.push(newAttempt)
 
-                console.log(quiz); // Check the updated quiz object
+                console.log(quiz);
             }
 
         }

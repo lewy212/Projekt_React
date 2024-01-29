@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from './AuthContext';
+import WyswietlDaneQuizu from "./WyswietlDaneQuizu";
 
 const HistoriaQuizow = ({ listaQuizow, listaUserow }) => {
     const { userId } = useAuth();
@@ -25,10 +26,7 @@ const HistoriaQuizow = ({ listaQuizow, listaUserow }) => {
             <div className="quiz-list">
                 {listaQuizowUsera.map((quiz) => (
                     <div key={keyCounter++} className="quiz-card">
-                        <h3>{quiz.nazwa}</h3>
-                        <p>Kategoria: {quiz.kategoria}</p>
-                        <p>Data dodania: {quiz.dataDodaniaQuizu.toLocaleDateString()}</p>
-                        <p>Data wygaśnięcia: {quiz.dataWygasnieciaQuizu.toLocaleDateString()}</p>
+                       <WyswietlDaneQuizu quiz={quiz}></WyswietlDaneQuizu>
                     </div>
                 ))}
             </div>

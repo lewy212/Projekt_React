@@ -44,17 +44,19 @@ const RozwiazQuiz = ({ match, listaQuizow, listaUserow }) => {
     const handleDodajPodejscie = () => {
         if (quiz) {
             const user = listaUserow.find((u) => u.id === userId);
-            const newAttempt = new PodejscieClass(
-                quiz.listaPodejsc.length + 1, // Ensure unique ID
-                user,
-                wynik,
-                quiz.listaPytan.length,
-            );
+            if(user){
+                const newAttempt = new PodejscieClass(
+                    quiz.listaPodejsc.length + 1, // Ensure unique ID
+                    user,
+                    wynik,
+                    quiz.listaPytan.length,
+                );
 
-            // Update state using setQuiz function
-            quiz.listaPodejsc.push(newAttempt)
+                // Update state using setQuiz function
+                quiz.listaPodejsc.push(newAttempt)
 
-            console.log(quiz); // Check the updated quiz object
+                console.log(quiz); // Check the updated quiz object
+            }
 
         }
     };

@@ -443,7 +443,7 @@ label {
   margin-bottom: 10px;
 }
 
-.text-styled {
+.text-styled2 {
   width: 100%;
   padding: 10px;
   margin-bottom: 15px;
@@ -451,7 +451,7 @@ label {
   border-radius: 3px;
 }
 
-.btn {
+.zarejestrujButton {
   background-color: #4caf50;
   color: white;
   padding: 10px 15px;
@@ -460,10 +460,35 @@ label {
   cursor: pointer;
 }
 
-.btn:hover {
+.zarejestrujButton {
   background-color: #45a049;
 }
 
 .error-message{
   color: red;
 }
+.user-dashboard {
+  margin-top: 50px;
+  text-align: center;
+}
+
+.user-profile {
+  border: 2px solid #ddd;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  margin: 0 auto;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.user-profile h2 {
+  color: #333;
+}
+
+.user-profile p {
+  margin: 10px 0;
+}
+
+/* Dodatkowe style według preferencji */
+

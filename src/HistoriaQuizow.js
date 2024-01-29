@@ -5,10 +5,9 @@ const HistoriaQuizow = ({ listaQuizow, listaUserow }) => {
     const { userId } = useAuth();
     const [listaQuizowUsera, setListaQuizowUsera] = useState([]);
     let keyCounter = 0; // Use let instead of const
-
     useEffect(() => {
         const user = listaUserow.find((u) => u.id === userId);
-
+        console.log(userId)
         if (user) {
             const listaIdQuizowUsera = user.listaIdQuizow;
 

@@ -63,7 +63,7 @@ const Rejestracja = ({ dodajUseraDoListy, listaUserow, idOstatniegoUsera }) => {
                         <label>
                             Nazwa użytkownika:
                             <input
-                                className="text-styled"
+                                className="text-styled2"
                                 type="text"
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
@@ -75,7 +75,7 @@ const Rejestracja = ({ dodajUseraDoListy, listaUserow, idOstatniegoUsera }) => {
                         <label>
                             Hasło:
                             <input
-                                className="text-styled"
+                                className="text-styled2"
                                 type="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
@@ -87,7 +87,7 @@ const Rejestracja = ({ dodajUseraDoListy, listaUserow, idOstatniegoUsera }) => {
                         <label>
                             Potwierdź hasło:
                             <input
-                                className="text-styled"
+                                className="text-styled2"
                                 type="password"
                                 value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
@@ -95,7 +95,7 @@ const Rejestracja = ({ dodajUseraDoListy, listaUserow, idOstatniegoUsera }) => {
                                 required
                             />
                         </label>
-                        <button className="btn" type="submit">
+                        <button className="zarejestrujButton" type="submit">
                             Zarejestruj się
                         </button>
                     </form>

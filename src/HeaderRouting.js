@@ -12,6 +12,7 @@ import Logowanie from "./Logowanie";
 import HistoriaQuizow from "./HistoriaQuizow";
 import {useAuth} from "./AuthContext";
 import Rejestracja from "./Rejestracja";
+import WyswietlProfil from "./WyswietlProfil";
 
 
 const HeaderRouting = ({ listaQuizow, dodajQuizDoListy,usunQuizZListy,listaUserow,dodajUseraDoListy }) => {
@@ -44,6 +45,9 @@ const HeaderRouting = ({ listaQuizow, dodajQuizDoListy,usunQuizZListy,listaUsero
                 ):null}
             <Route exact path="/rozwiaz-quiz/:id" render={(props) => <RozwiazQuiz listaQuizow={listaQuizow} listaUserow={listaUserow} {...props} />} />
             <Route exact path="/zarejestruj"  render={() =><Rejestracja dodajUseraDoListy={dodajUseraDoListy} listaUserow={listaUserow} idOstatniegoUsera={getIdOstatniegoUsera()} />} />
+            {loggedIn ? (
+            <Route exact path="/profil" render={() => <WyswietlProfil listaUserow={listaUserow} />} />
+                ):null}
         </Router>
     );
 }

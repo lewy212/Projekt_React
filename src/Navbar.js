@@ -43,6 +43,11 @@ const Navbar = () => {
                         Zarejestruj sie
                     </Link>
                 ) : null}
+                {loggedIn ? (
+                    <Link to="/profil" className="navElement">
+                        Wyswietl profil
+                    </Link>
+                ) : null}
             </div>
         </div>
     );

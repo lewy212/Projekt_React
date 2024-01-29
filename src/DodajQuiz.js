@@ -23,12 +23,16 @@ function DodajQuiz({ dodajQuizDoListy, idOstatniegoQuizu, listaQuizow }) {
     const [bladWalidacjiQuizu, setBladWalidacjiQuizu] = useState('');
     const [quizDodany, setQuizDodany] = useState(false);
     const [quizIdState, setQuizIdState] = useState(null);
+
+    const [dataWygasniecia, setDataWygasniecia] = useState(new Date());
+
     
 
     useEffect(() => {
+        /*
         console.log('Effect is running');
         console.log('quizId:', quizId);
-        console.log('listaQuizow:', listaQuizow);
+        console.log('listaQuizow:', listaQuizow);*/
     
         if (quizId && listaQuizow) {
             const quizDoEdycji = listaQuizow.find((quiz) => quiz.id === parseInt(quizId));
@@ -63,16 +67,17 @@ function DodajQuiz({ dodajQuizDoListy, idOstatniegoQuizu, listaQuizow }) {
 
     const handleDodajOdpowiedz = () => {
         if (!odpowiedzTekst || odpowiedzTekst.length < 2 || !czyNieZawieraZnakowSpecjalnych(odpowiedzTekst)) {
-            setBladWalidacjiOdpowiedzi('Uzupełnij odpowiedz (min:2, brak znakow specjalnych)');
-            return;
+          setBladWalidacjiOdpowiedzi('Uzupełnij odpowiedz (min:2, brak znakow specjalnych)');
+          return;
         }
-
+        // Dodawanie nowej odpowiedzi ze zmienną stanu odpowiedzPrawidlowa zamiast false
         const nowaOdpowiedz = new OdpowiedziClass(odpowiedzi.length, odpowiedzTekst, odpowiedzPrawidlowa);
         setOdpowiedzi([...odpowiedzi, nowaOdpowiedz]);
         setOdpowiedzTekst('');
         setBladWalidacjiOdpowiedzi('');
+        // Resetowanie stanu odpowiedzPrawidlowa do wartości false po dodaniu odpowiedzi
         setOdpowiedzPrawidlowa(false);
-    };
+      };
 
     const handleDodajPytanie = () => {
         if (
@@ -147,32 +152,53 @@ function DodajQuiz({ dodajQuizDoListy, idOstatniegoQuizu, listaQuizow }) {
         setPytania(updatedPytania);
     };
     
-    const handleZapiszEdycjeOdpowiedzi = (pytanieIndex, odpIndex) => {
+
+    const handleZapiszEdycjeOdpowiedzi = (pytanieIndex, odpIndex, czyPrawidlowa) => {
+        console.log(`Zapisz edycje odpowiedzi: pytanieIndex=${pytanieIndex}, odpIndex=${odpIndex}, czyPrawidlowa=${czyPrawidlowa}`);
+    
         const updatedPytania = pytania.map((pytanie, index) => {
-          if (index === pytanieIndex) {
-            const updatedOdpowiedzi = pytanie.odpowiedzi.map((odpowiedz, i) => {
-              if (i === odpIndex) {
-                return new OdpowiedziClass(odpowiedz.id, odpowiedz.tresc, odpowiedz.czyPrawidlowa);
+            if (index === pytanieIndex) {
+              let nowaPoprawnaOdpowiedz = czyPrawidlowa ? odpIndex : pytanie.poprawnaOdpowiedz;
+              // Jeśli ustawiamy inną odpowiedź jako prawidłową, należy zresetować poprzednią
+              if (czyPrawidlowa) {
+                pytanie.odpowiedzi = pytanie.odpowiedzi.map(odp => {
+                  if (odp.id !== odpIndex) {
+                    return { ...odp, jestPrawidlowa: false };
+                  }
+                  return odp;
+                });
               }
-              return odpowiedz;
-            });
-            return new PytanieClass(pytanie.id, pytanie.tresc, updatedOdpowiedzi, pytanie.poprawnaOdpowiedz);
-          }
-          return pytanie;
-        });
-      
+              const updatedOdpowiedzi = pytanie.odpowiedzi.map((odpowiedz, i) => {
+                if (i === odpIndex) {
+                  return new OdpowiedziClass(odpowiedz.id, odpowiedz.tresc, czyPrawidlowa);
+                }
+                return odpowiedz;
+              });
+              return new PytanieClass(pytanie.id, pytanie.tresc, updatedOdpowiedzi, nowaPoprawnaOdpowiedz+1);
+            }
+            return pytanie;
+          });
+    
+        console.log('Updated pytania:', updatedPytania);
+    
         setPytania(updatedPytania);
-      
+    
         // Aktualizacja quizu w globalnym stanie lub bazie danych
         const quizDoAktualizacji = listaQuizow.find(quiz => quiz.id === quizIdState);
         if (quizDoAktualizacji) {
-          quizDoAktualizacji.listaPytan = updatedPytania;
-          dodajQuizDoListy([...listaQuizow.filter(quiz => quiz.id !== quizIdState), quizDoAktualizacji]);
-          alert(`Zmiany w odpowiedziach pytania ${pytanieIndex + 1} zostały zapisane.`);
+            quizDoAktualizacji.listaPytan = updatedPytania;
+            dodajQuizDoListy([...listaQuizow.filter(quiz => quiz.id !== quizIdState), quizDoAktualizacji]);
+            console.log('Quiz został zaktualizowany');
+            alert(`Zmiany w odpowiedziach pytania ${pytanieIndex + 1} zostały zapisane.`);
         } else {
-          alert('Błąd przy zapisywaniu zmian w odpowiedziach.');
+            console.error('Nie znaleziono quizu do aktualizacji');
+            alert('Błąd przy zapisywaniu zmian w odpowiedziach.');
         }
-      };
+    };
+    
+    
+    
+    
       
     
 
@@ -205,8 +231,6 @@ function DodajQuiz({ dodajQuizDoListy, idOstatniegoQuizu, listaQuizow }) {
                 quizDoEdycji.kategoria = kategoria;
                 quizDoEdycji.listaPytan = pytania;
                 setQuizDodany(true);
-
-                // logika edycji, np. zaktualizowanie stanu aplikacji, wysłanie żądania na serwer itp.
             }
         } else {
             const noweId = idOstatniegoQuizu() + 1;
@@ -263,7 +287,7 @@ function DodajQuiz({ dodajQuizDoListy, idOstatniegoQuizu, listaQuizow }) {
                     <ul className="answer-section">
                         {odpowiedzi.map((odp, index) => (
                             <li key={index} className="answer-item">
-                                <input type="radio" name="poprawnaOdpowiedz" onChange={() => setNumerPoprawnejOdpowiedzi(index)} />
+                                <input type="radio" name="poprawnaOdpowiedz" onChange={() => setNumerPoprawnejOdpowiedzi(index+1)} />
                                 <span>{odp.tresc}</span>
                             </li>
                         ))}
@@ -283,7 +307,7 @@ function DodajQuiz({ dodajQuizDoListy, idOstatniegoQuizu, listaQuizow }) {
         <h3>Dodane pytania:</h3>
         <ul>
             {pytania.map((pytanie, pytanieIndex) => (
-                <li key={pytanieIndex}>
+                <li key={`quiz-${quizIdState}-pytanie-${pytanieIndex}`}>
                     <label className='pytanieHeader'>
                         Pytanie {pytanieIndex + 1}:
                         <input type="text" value={pytanie.tresc} onChange={(e) => handleEdytujPytanieTekst(e, pytanieIndex)} />
@@ -297,7 +321,8 @@ function DodajQuiz({ dodajQuizDoListy, idOstatniegoQuizu, listaQuizow }) {
                                         <input type="text" value={odp.tresc} onChange={(e) => handleEdytujOdpowiedzTekst(e, pytanieIndex, odpIndex)} />
                                         <input type="radio" name={`poprawnaOdpowiedz${pytanieIndex}`} checked={pytanie.poprawnaOdpowiedz === odpIndex} onChange={() => handleEdytujPoprawnaOdpowiedz(pytanieIndex, odpIndex)} />
                                     </label>
-                                    <button onClick={() => handleZapiszEdycjeOdpowiedzi(pytanieIndex, odpIndex)}>Zapisz zmiany odpowiedzi</button>
+                                    <button onClick={() => handleZapiszEdycjeOdpowiedzi(pytanieIndex, odpIndex, false)}>Ustaw jako nieprawidłową</button>
+                                    <button onClick={() => handleZapiszEdycjeOdpowiedzi(pytanieIndex, odpIndex, true)}>Ustaw jako prawidłową</button>
                                 </li>
                             ))
                         ) : (

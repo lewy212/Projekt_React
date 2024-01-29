@@ -1,6 +1,9 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+
 body {
   margin: 0;
   padding: 0;
+  font-family: montserrat, arial, verdana;
 }
 
 @keyframes verticalBreathing {
@@ -31,9 +34,9 @@ body {
   padding: 20px;
   display: flex;
   flex-direction: column;
-  background-color: whitesmoke;
+  background-color: #FFFFFF;
   position: relative;
-  top: 5%;
+  margin-top: 100px;
   left: 50%;
 }
 
@@ -81,7 +84,7 @@ button {
   border-width: 0;
   box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset,rgba(50, 50, 93, .1) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0;
   box-sizing: border-box;
-  color: #fff;
+  color: #000000;
   cursor: pointer;
   font-family: -apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif;
   font-size: 100%;
@@ -119,7 +122,7 @@ button {
 	line-height: 40px;
 	margin: 1em 0 .6em 0;
 	font-weight: normal;
-	color: white;
+	color: #000000;
 	font-family: 'Hammersmith One', sans-serif;
 	position: relative;
 	color: #6Cf;
@@ -130,7 +133,7 @@ button {
 	line-height: 40px;
 	margin: 1em 0 .6em 0;
 	font-weight: normal;
-	color: white;
+	color: #000000;
 	font-family: 'Hammersmith One', sans-serif;
 	position: relative;
 	color: #6Cf;
@@ -166,8 +169,13 @@ button {
 
 /* Dodaj te style do istniejącego arkusza stylów */
 
+.navLogoBox{
+  width: 20%;
+  float: left;
+}
+
 .topnav {
-  background-color: #333;
+  background-color: #1e1600;
   overflow: hidden;
   width: 100%;
   padding-bottom: 30px;
@@ -181,7 +189,9 @@ button {
   justify-content: center;
   align-items: center;
   height: 50px;
-  margin-top: 30px; /* Dodaj margines do górnej krawędzi topnav, aby oddzielić go od treści strony */
+  margin-top: 5%; /* Dodaj margines do górnej krawędzi topnav, aby oddzielić go od treści strony */
+  width: 80%;
+  float: left;
 }
 
 .navElement {
@@ -190,6 +200,7 @@ button {
   padding: 14px 16px;
   text-decoration: none;
   font-size: 18px;
+  margin-left: 25px;
 }
 
 .navElement:hover {
@@ -197,7 +208,7 @@ button {
   color: black;
 }
 .deleteButton{
-  background-color: red;
+  background-color: black;
 }
 .editButton{
   background-color: #333333;
@@ -276,7 +287,7 @@ p {
 #quizContainer label {
   display: block;
   font-size: 18px;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
 }
 #quizContainer select {
   width: 100%;
@@ -345,6 +356,62 @@ p {
   color: #2337a9;
 }
 
+
+input[type=text] {
+	appearance: none;
+	border: none;
+	outline: none;
+	border-bottom: .2em solid #1e1600;
+	background: rgba(#1e1600, .2);
+	border-radius: .2em .2em 0 0;
+	padding: .4em;
+	color: #1e1600;
+}
+/*
+input[type=radio] {
+	appearance: none;
+  background-color: #fff;
+  margin: 0;
+	font: inherit;
+  color: #1e1600;
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.15em solid currentColor;
+  border-radius: 50%;
+	display: grid;
+  place-content: center;
+	&::before {
+		content: "";
+		width: 0.65em;
+		height: 0.65em;
+		border-radius: 50%;
+		transform: scale(0);
+		transition: 120ms transform ease-in-out;
+		box-shadow: inset 1em 1em #1e1600;
+		background-color: CanvasText;
+		transform-origin: top bottom;
+	}
+	&:checked::before {
+		transform: scale(1);
+	}
+}
+*/
+
+.pytanieHeader{
+  color: red;
+  margin-top: 80px;
+  margin-bottom: 50px;
+}
+
+#quiz-card-undefined{
+  display: none;
+}
+
+.main-section{
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+=======
 /* Add these styles to your existing stylesheet */
 
 .login-container {
@@ -491,4 +558,3 @@ label {
 }
 
 /* Dodatkowe style według preferencji */
-

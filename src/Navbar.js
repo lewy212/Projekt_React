@@ -11,6 +11,12 @@ const Navbar = () => {
 
     return (
         <div className="topnav">
+            <div className="navLogoBox">
+            <Link to="/" className="navLogo">
+                <img src="/logo.png" alt="żubr" style={{ height: "100px", margin: "25px"}} />
+            </Link>
+            </div>
+
             <div className="topnavElements">
                 <Link to="/" className="navElement">
                     Home

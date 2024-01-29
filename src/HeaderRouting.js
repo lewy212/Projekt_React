@@ -11,9 +11,10 @@ import RozwiazQuiz from "./RozwiazQuiz";
 import Logowanie from "./Logowanie";
 import HistoriaQuizow from "./HistoriaQuizow";
 import {useAuth} from "./AuthContext";
+import Rejestracja from "./Rejestracja";
 
 
-const HeaderRouting = ({ listaQuizow, dodajQuizDoListy,usunQuizZListy,listaUserow }) => {
+const HeaderRouting = ({ listaQuizow, dodajQuizDoListy,usunQuizZListy,listaUserow,dodajUseraDoListy }) => {
     const { loggedIn, logout } = useAuth();
     const getIdOstatniegoQuizu = () => {
         if (listaQuizow.length === 0) {
@@ -21,6 +22,12 @@ const HeaderRouting = ({ listaQuizow, dodajQuizDoListy,usunQuizZListy,listaUsero
         }
         return listaQuizow[listaQuizow.length - 1].id ;
     };
+    const getIdOstatniegoUsera = ()=> {
+        if (listaUserow.length === 0){
+            return null;
+        }
+        return listaUserow[listaUserow.length-1].id;
+    }
     return (
         <Router>
             <Navbar />
@@ -36,7 +43,7 @@ const HeaderRouting = ({ listaQuizow, dodajQuizDoListy,usunQuizZListy,listaUsero
             <Route exact path="/edytuj-quiz/:quizId" render={(props) => <DodajQuiz  dodajQuizDoListy={dodajQuizDoListy} idOstatniegoQuizu={getIdOstatniegoQuizu} listaQuizow={listaQuizow} {...props} />}/>
                 ):null}
             <Route exact path="/rozwiaz-quiz/:id" render={(props) => <RozwiazQuiz listaQuizow={listaQuizow} listaUserow={listaUserow} {...props} />} />
-
+            <Route exact path="/zarejestruj"  render={() =><Rejestracja dodajUseraDoListy={dodajUseraDoListy} listaUserow={listaUserow} idOstatniegoUsera={getIdOstatniegoUsera()} />} />
         </Router>
     );
 }

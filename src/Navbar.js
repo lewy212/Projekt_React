@@ -38,6 +38,11 @@ const Navbar = () => {
                         Logout
                     </button>
                 )}
+                {!loggedIn ? (
+                    <Link to="/zarejestruj" className="navElement">
+                        Zarejestruj sie
+                    </Link>
+                ) : null}
             </div>
         </div>
     );

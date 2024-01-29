@@ -42,13 +42,14 @@ class App extends Component {
         this.setState(prevState => ({
             listaUserow: [...prevState.listaUserow, user],
         }));
+        console.log(this.state.listaUserow);
     }
     render() {
         console.log(this.state.listaQuizow)
         return (
             <div>
                 <AuthProvider>
-                <HeaderRouting listaQuizow={this.state.listaQuizow} dodajQuizDoListy={this.dodajQuizDoListy} usunQuizZListy={this.usunQuizZListy} listaUserow={this.state.listaUserow}/>
+                <HeaderRouting listaQuizow={this.state.listaQuizow} dodajQuizDoListy={this.dodajQuizDoListy} usunQuizZListy={this.usunQuizZListy} listaUserow={this.state.listaUserow} dodajUseraDoListy={this.dodajUseraDoListy}/>
                 </AuthProvider>
                     {/*<WyswietlQuizy listaQuizow={this.state.listaQuizow} />*/}
             </div>

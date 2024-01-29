@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from './AuthContext';
+import {Redirect} from "react-router-dom";
 
 const Logowanie = ({ listaUserow }) => {
     const { loggedIn, username, userId, login, logout, setAuthUsername } = useAuth();
@@ -19,6 +20,9 @@ const Logowanie = ({ listaUserow }) => {
     const handleLogout = () => {
         logout();
     };
+    if(loggedIn){
+        return <Redirect to="/quizy" />;
+    }
 
     return (
         <div className="login-container">

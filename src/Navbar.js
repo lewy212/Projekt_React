@@ -41,11 +41,15 @@ const Navbar = () => {
                         Zarejestruj sie
                     </Link>
                 ) : null}
+
                 {loggedIn ? (
                     <Link to="/profil" className="navElement">
                         Wyswietl profil
                     </Link>
                 ) : null}
+                <Link to="/faq" className="navElement">
+                    Faq
+                </Link>
                 {!loggedIn ? (
                     <Link to="/logowanie" className="navElement">
                         Login

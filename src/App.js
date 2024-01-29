@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import PrzykladowyQuiz from "./PrzykladowyQuiz";
+import StronaHome from "./StronaHome";
 import HeaderRouting from "./HeaderRouting";
 import Navbar from "./Navbar";
 import QuizClass from "./klasy/QuizClass";

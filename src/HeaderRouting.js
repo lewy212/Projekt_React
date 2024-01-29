@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Navbar from "./Navbar";
-import PrzykladowyQuiz from "./PrzykladowyQuiz";
+import StronaHome from "./StronaHome";
 
 import Ranking from "./Ranking";
 import DodajQuiz from "./DodajQuiz";
@@ -13,6 +13,7 @@ import HistoriaQuizow from "./HistoriaQuizow";
 import {useAuth} from "./AuthContext";
 import Rejestracja from "./Rejestracja";
 import WyswietlProfil from "./WyswietlProfil";
+import Faq from "./Faq";
 
 
 const HeaderRouting = ({ listaQuizow, dodajQuizDoListy,usunQuizZListy,listaUserow,dodajUseraDoListy }) => {
@@ -32,9 +33,9 @@ const HeaderRouting = ({ listaQuizow, dodajQuizDoListy,usunQuizZListy,listaUsero
     return (
         <Router>
             <Navbar />
-            <Route exact path="/" component={PrzykladowyQuiz} />
+            <Route exact path="/" component={StronaHome} />
             <Route exact path="/ranking" render={() => <Ranking quizzes={listaQuizow} />} />
-
+            <Route exact path="/faq" component={Faq}/>
             <Route exact path="/nic" render={(props) => <DodajQuiz dodajQuizDoListy={dodajQuizDoListy} idOstatniegoQuizu={getIdOstatniegoQuizu} {...props} />}/>
             {/*filip*/}
             <Route path="/quizy/:quizId" component={RozwiazywanieQuiz} />

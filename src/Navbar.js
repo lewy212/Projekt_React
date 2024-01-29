@@ -6,7 +6,7 @@ const Navbar = () => {
         <div className="topnav">
             <div className="navLogoBox">
             <Link to="/" className="navLogo">
-                <img src="/logo.png" alt="Logo" style={{ height: "100px", margin: "25px"}} />
+                <img src="/logo.png" alt="żubr" style={{ height: "100px", margin: "25px"}} />
             </Link>
             </div>
 

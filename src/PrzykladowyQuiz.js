@@ -22,28 +22,10 @@ export default function PrzykladowyQuiz() {
 
     return (
         <div className="app">
-            {showScore ? (
-                <section className="showScore-section">
-                    Twoje punkty: {score} / {questions.length}
-                </section>
-            ) : (
-                <>
-                    <section className="question-section">
-                        <h1 className="header-styled-h1">
-                            Pytanie: {currentQuestion + 1}/{questions.length}
-                        </h1>
-                        <p className="text-styled">{questions[currentQuestion].questionText}</p>
-                    </section>
-
-                    <section className="answer-section">
-                        {questions[currentQuestion].answerOptions.map((item, index) => (
-                            <button key={index} className="btn" onClick={() => handleClick(item.isCorrect)}>
-                                {item.answerText}
-                            </button>
-                        ))}
-                    </section>
-                </>
-            )}
+            <section className="main-section">
+                <h1 className="header-styled-h1">Witamy na stronie głównej Quizu o Podlasiu</h1>
+                <p className="text-styled">W pozycji menu Quizy znajdziesz możliwość rozwiązwyania quizów dostępnych na naszej platformie.</p>
+            </section>
         </div>
     );
 }

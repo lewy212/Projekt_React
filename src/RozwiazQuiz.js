@@ -11,7 +11,6 @@ const RozwiazQuiz = ({ match, listaQuizow }) => {
 
 
     useEffect(() => {
-
         const aktualnyQuiz = listaQuizow.find((quiz) => quiz.id === parseInt(quizId));
         setQuiz(aktualnyQuiz);
     }, [quizId, listaQuizow]);

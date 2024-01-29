@@ -19,7 +19,7 @@ const HeaderRouting = ({ listaQuizow, dodajQuizDoListy,usunQuizZListy }) => {
     return (
         <Router>
             <Navbar />
-            <Route exact path="/" component={PrzykladowyQuiz} />
+            <Route exact path="" component={PrzykladowyQuiz} />
             
             <Route exact path="/nic" render={(props) => <DodajQuiz dodajQuizDoListy={dodajQuizDoListy} idOstatniegoQuizu={getIdOstatniegoQuizu} {...props} />}/>
             {/*filip*/}

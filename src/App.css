@@ -34,9 +34,9 @@ body {
   padding: 20px;
   display: flex;
   flex-direction: column;
-  background-color: whitesmoke;
+  background-color: #FFFFFF;
   position: relative;
-  top: 5%;
+  margin-top: 100px;
   left: 50%;
 }
 
@@ -84,7 +84,7 @@ button {
   border-width: 0;
   box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset,rgba(50, 50, 93, .1) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0;
   box-sizing: border-box;
-  color: #fff;
+  color: #000000;
   cursor: pointer;
   font-family: -apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif;
   font-size: 100%;
@@ -122,7 +122,7 @@ button {
 	line-height: 40px;
 	margin: 1em 0 .6em 0;
 	font-weight: normal;
-	color: white;
+	color: #000000;
 	font-family: 'Hammersmith One', sans-serif;
 	position: relative;
 	color: #6Cf;
@@ -133,7 +133,7 @@ button {
 	line-height: 40px;
 	margin: 1em 0 .6em 0;
 	font-weight: normal;
-	color: white;
+	color: #000000;
 	font-family: 'Hammersmith One', sans-serif;
 	position: relative;
 	color: #6Cf;
@@ -207,7 +207,7 @@ button {
   color: black;
 }
 .deleteButton{
-  background-color: red;
+  background-color: black;
 }
 .editButton{
   background-color: #333333;
@@ -403,4 +403,9 @@ input[type=radio] {
 
 #quiz-card-undefined{
   display: none;
+}
+
+.main-section{
+  margin-top: 50px;
+  margin-bottom: 50px;
 }

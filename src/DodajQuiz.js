@@ -65,6 +65,7 @@ function DodajQuiz({ dodajQuizDoListy, idOstatniegoQuizu, listaQuizow }) {
     };
 
     const handleDodajPytanie = () => {
+        console.log(numerPoprawnejOdpowiedzi);
         if (
             !pytanieTekst ||
             odpowiedzi.length < 2 ||
@@ -273,7 +274,9 @@ function DodajQuiz({ dodajQuizDoListy, idOstatniegoQuizu, listaQuizow }) {
                     <ul className="answer-section">
                         {odpowiedzi.map((odp, index) => (
                             <li key={index} className="answer-item">
+
                                 <input type="radio" name="poprawnaOdpowiedz" onChange={() => setNumerPoprawnejOdpowiedzi(index + 1)} />
+
                                 <span>{odp.tresc}</span>
                             </li>
                         ))}

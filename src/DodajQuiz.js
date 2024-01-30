@@ -257,23 +257,26 @@ function DodajQuiz({ dodajQuizDoListy, idOstatniegoQuizu, listaQuizow }) {
                 </div>
             ) : (
                 <>
-                    <h2>{quizIdState ? 'Edytuj quiz' : 'Dodaj nowy quiz'}</h2>
-                    <label>
+                    <h1>{quizIdState ? 'Edytuj quiz' : 'Dodaj nowy quiz'}</h1>
+                    <div>
                         {bladWalidacjiQuizu && <p style={{ color: 'red' }}>{bladWalidacjiQuizu}</p>}
-                        Nazwa quizu:
-                        <input type="text" value={nazwa} onChange={(e) => setNazwa(e.target.value)} placeholder="Nazwa quizu" />
-                    </label>
-                    <label>
+                        <label htmlFor="nazwaQuizu">Nazwa Quizu</label>
+                        <input id="nazwaQuizu" type="text" value={nazwa} onChange={(e) => setNazwa(e.target.value)} placeholder="Nazwa quizu" />
+                    </div>
+                    <label htmlFor="dataWygasniecia">
                         Data wygaśnięcia quizu:
+                    </label>
                         <input
                             type="date"
+                            id="dataWygasniecia"
                             value={quizIdState ? dataWygasnieciaEdytowanegoQuizu.toISOString().split('T')[0] : dataWygasnieciaNowegoQuizu.toISOString().split('T')[0]}
                             onChange={(e) => (quizIdState ? setDataWygasnieciaEdytowanegoQuizu(new Date(e.target.value)) : setDataWygasnieciaNowegoQuizu(new Date(e.target.value)))}
                         />
-                    </label>
-                    <label>
+
+                    <label htmlFor="quizKategoria">
                         Kategoria:
-                        <select value={kategoria} onChange={(e) => setKategoria(e.target.value)}>
+                    </label>
+                        <select id="quizKategoria" value={kategoria} onChange={(e) => setKategoria(e.target.value)}>
                             <option value="Przyroda i Środowisko">Przyroda i Środowisko</option>
                             <option value="Historia i Kultura">Historia i Kultura</option>
                             <option value="Geografia i Miejsca">Geografia i Miejsca</option>
@@ -281,18 +284,27 @@ function DodajQuiz({ dodajQuizDoListy, idOstatniegoQuizu, listaQuizow }) {
                             <option value="Sport i Rozrywka">Sport i Rozrywka</option>
                             <option value="Sławni Ludzie">Sławni Ludzie</option>
                         </select>
-                    </label>
 
-                    <h3 style={{ marginBottom: '25px' }}>Dodaj pytanie</h3>
+                    <h2 style={{ marginbottom: '25px' }}>Dodaj pytanie</h2>
+
                     {bladWalidacjiPytania && <p style={{ color: 'red' }}>{bladWalidacjiPytania}</p>}
-                    <label>
+                    
+                    <label htmlFor="trescPytaniaQuiz">
                         Treść pytania:
-                        <input type="text" value={pytanieTekst} onChange={(e) => setPytanieTekst(e.target.value)} placeholder="Treść pytania" />
                     </label>
+                    <input id="trescPytaniaQuiz" type="text" value={pytanieTekst} onChange={(e) => setPytanieTekst(e.target.value)} placeholder="Treść pytania" />
+                    
+                    
                     <ul className="answer-section">
                         {odpowiedzi.map((odp, index) => (
                             <li key={index} className="answer-item">
-                                <input type="radio" name="poprawnaOdpowiedz" onChange={() => setNumerPoprawnejOdpowiedzi(index + 1)} />
+
+                                <label htmlFor='poprawnaOdpQuiz'>
+                                    Poprawna odpowiedź
+                                </label>
+                                <input id="poprawnaOdpQuiz" type="radio" name="poprawnaOdpowiedz" onChange={() => setNumerPoprawnejOdpowiedzi(index + 1)} />
+
+
                                 <span>{odp.tresc}</span>
                             </li>
                         ))}
@@ -327,11 +339,12 @@ function DodajQuiz({ dodajQuizDoListy, idOstatniegoQuizu, listaQuizow }) {
                                             {pytanie.odpowiedzi && pytanie.odpowiedzi.length > 0 ? (
                                                 pytanie.odpowiedzi.map((odp, odpIndex) => (
                                                     <li key={`odp-${pytanieIndex}-${odpIndex}`}>
-                                                        <label>
+                                                        <label htmlFor='odpowiedzQuiz'>
                                                             Odpowiedź {odpIndex + 1}:
-                                                            <input type="text" value={odp.tresc} onChange={(e) => handleEdytujOdpowiedzTekst(e, pytanieIndex, odpIndex)} />
-                                                            <input type="radio" name={`poprawnaOdpowiedz${pytanieIndex}`} checked={pytanie.poprawnaOdpowiedz === odpIndex} onChange={() => handleEdytujPoprawnaOdpowiedz(pytanieIndex, odpIndex)} />
                                                         </label>
+                                                        <input id='odpowiedzQuiz' type="text" value={odp.tresc} onChange={(e) => handleEdytujOdpowiedzTekst(e, pytanieIndex, odpIndex)} />
+                                                        <input type="radio" name={`poprawnaOdpowiedz${pytanieIndex}`} checked={pytanie.poprawnaOdpowiedz === odpIndex} onChange={() => handleEdytujPoprawnaOdpowiedz(pytanieIndex, odpIndex)} />
+
                                                         <button onClick={() => handleZapiszEdycjeOdpowiedzi(pytanieIndex, odpIndex, false)}>Ustaw jako nieprawidłową</button>
                                                         <button onClick={() => handleZapiszEdycjeOdpowiedzi(pytanieIndex, odpIndex, true)}>Ustaw jako prawidłową</button>
                                                     </li>

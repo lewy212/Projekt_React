@@ -46,9 +46,11 @@ const WyswietlQuizy = ({ listaQuizow, usunQuizZListy }) => {
 
     return (
         <div>
-            <h2 style={{ textAlign: "center", marginTop: "200px" }}>Lista Quizów</h2>
+            <h1 style={{ textAlign: "center", marginTop: "200px" }}>Lista Quizów</h1>
             <div className="search-container">
+            <label htmlFor="searchQuiz">Wyszukaj quiz:</label>
                 <input
+                    id="searchQuiz"
                     type="text"
                     placeholder="Wyszukaj quiz..."
                     value={searchTerm}
@@ -68,7 +70,7 @@ const WyswietlQuizy = ({ listaQuizow, usunQuizZListy }) => {
 
                     return (
                         <div key={quiz.id} id={`quiz-card-${quiz.id}`} className="quiz-card">
-                            <h3>{quiz.nazwa}</h3>
+                            <h2>{quiz.nazwa}</h2>
                             <p>Kategoria: {quiz.kategoria}</p>
                             <p>Data dodania: {quiz.dataDodaniaQuizu ? quiz.dataDodaniaQuizu.toLocaleDateString() : 'Brak daty'}</p>
                             <p>Data wygaśnięcia: {quiz.dataWygasniecia ? quiz.dataWygasniecia.toLocaleString() : 'Brak daty'}</p>

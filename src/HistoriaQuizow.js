@@ -22,7 +22,7 @@ const HistoriaQuizow = ({ listaQuizow, listaUserow }) => {
 
     return (
         <div>
-            <h2 style={{ textAlign: "center", marginTop: "200px" }}>Historia Quizów</h2>
+            <h1 style={{ textAlign: "center", marginTop: "200px" }}>Historia Quizów</h1>
             <div className="quiz-list">
                 {listaQuizowUsera.map((quiz) => (
                     <div key={keyCounter++} className="quiz-card">

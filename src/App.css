@@ -125,7 +125,6 @@ button {
 	color: #000000;
 	font-family: 'Hammersmith One', sans-serif;
 	position: relative;
-	color: #6Cf;
 }
 
 .text-styled{
@@ -136,7 +135,6 @@ button {
 	color: #000000;
 	font-family: 'Hammersmith One', sans-serif;
 	position: relative;
-	color: #6Cf;
 }
 
 
@@ -398,7 +396,8 @@ input[type=radio] {
 */
 
 .pytanieHeader{
-  color: red;
+  color: black;
+  font-weight: 700;
   margin-top: 80px;
   margin-bottom: 50px;
 }
@@ -432,14 +431,14 @@ input[type=radio] {
 
 .login-container h1 {
   font-size: 35px;
-  color:  #2963ff;
+  color: black;
 }
 
 .login-container label {
   display: block;
   font-size: 18px;
   margin-bottom: 10px;
-  color:  #2963ff;
+  color:  black;
 }
 
 .login-container input {
@@ -447,12 +446,12 @@ input[type=radio] {
   padding: 8px;
   font-size: 16px;
   margin-bottom: 15px;
-  color: #2963ff;
+  color: black;
 }
 
 .login-container p {
   font-size: 30px;
-  color:  #2963ff;
+  color:  black;
   margin: 1em 0 0.6em 0;
 }
 
@@ -519,16 +518,12 @@ label {
 }
 
 .zarejestrujButton {
-  background-color: #4caf50;
+  background-color: black;
   color: white;
   padding: 10px 15px;
   border: none;
   border-radius: 3px;
   cursor: pointer;
-}
-
-.zarejestrujButton {
-  background-color: #45a049;
 }
 
 .error-message{
@@ -556,5 +551,7 @@ label {
 .user-profile p {
   margin: 10px 0;
 }
+
+
 
 /* Dodatkowe style według preferencji */

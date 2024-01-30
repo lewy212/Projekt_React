@@ -33,7 +33,7 @@ const HeaderRouting = ({ listaQuizow, dodajQuizDoListy,usunQuizZListy,listaUsero
     return (
         <Router>
             <Navbar />
-            <Route exact path="/" component={StronaHome} />
+            <Route exact path="/home" component={StronaHome} />
             <Route exact path="/ranking" render={() => <Ranking quizzes={listaQuizow} />} />
             <Route exact path="/faq" component={Faq}/>
             <Route exact path="/nic" render={(props) => <DodajQuiz dodajQuizDoListy={dodajQuizDoListy} idOstatniegoQuizu={getIdOstatniegoQuizu} {...props} />}/>

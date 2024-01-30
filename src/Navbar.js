@@ -18,7 +18,7 @@ const Navbar = () => {
             </div>
 
             <div className="topnavElements">
-                <Link to="/" className="navElement">
+                <Link to="/home" className="navElement">
                     Home
                 </Link>
                 <Link to="/quizy" className="navElement">

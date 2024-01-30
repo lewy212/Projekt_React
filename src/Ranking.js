@@ -59,7 +59,7 @@ const Ranking = ({ quizzes }) => {
 
   return (
     <div>
-      <h2 style={{ textAlign: 'center', marginTop: '150px' }}>Ranking Quizów</h2>
+      <h1 style={{ textAlign: 'center', marginTop: '150px' }}>Ranking Quizów</h1>
       <h2 style={{ textAlign: 'center' }}>(Quizy posortowane w zależności od poprawności odpowiedzi)</h2>
       <h2 style={{ textAlign: 'center' }}>
         <button onClick={handleSort}>

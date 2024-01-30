@@ -63,7 +63,7 @@ const RozwiazQuiz = ({ match, listaQuizow, listaUserow }) => {
         <div style={{ textAlign: "center", marginTop: "200px" }}>
             {quiz ? (
                 <>
-                    <h2>Rozwiązanie Quizu {quiz.id}</h2>
+                    <h1>Rozwiązanie Quizu {quiz.id}</h1>
                     {quiz.listaPytan.length > 0 ? (
                         <div className="app">
                             {showWynik ? (
@@ -73,9 +73,9 @@ const RozwiazQuiz = ({ match, listaQuizow, listaUserow }) => {
                             ) : (
                                 <>
                                     <section className="question-section">
-                                        <h1 className="header-styled-h1">
+                                        <h2 className="header-styled-h1">
                                             Pytanie: {aktualnePytanie + 1}/{quiz.listaPytan.length}
-                                        </h1>
+                                        </h2>
                                         <p className="text-styled">{quiz.listaPytan[aktualnePytanie].tresc}</p>
                                     </section>
 

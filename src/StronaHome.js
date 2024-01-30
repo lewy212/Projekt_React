@@ -1,6 +1,5 @@
 import React from "react";
 import "./App.css";
-import { questions } from "./questions";
 import QuizClass from './klasy/QuizClass';
 import PodejscieClass from './klasy/PodejscieClass';
 

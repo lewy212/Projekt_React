@@ -65,7 +65,6 @@ function DodajQuiz({ dodajQuizDoListy, idOstatniegoQuizu, listaQuizow }) {
     };
 
     const handleDodajPytanie = () => {
-        console.log(numerPoprawnejOdpowiedzi);
         if (
             !pytanieTekst ||
             odpowiedzi.length < 2 ||
@@ -92,6 +91,13 @@ function DodajQuiz({ dodajQuizDoListy, idOstatniegoQuizu, listaQuizow }) {
         const updatedPytania = [...pytania];
         updatedPytania[index].tresc = e.target.value;
         setPytania(updatedPytania);
+
+        // Update the expiration date for the edited question if needed
+        if (!updatedPytania[index].dataWygasniecia) {
+            const updatedDataWygasniecia = quizIdState ? dataWygasnieciaEdytowanegoQuizu : dataWygasnieciaNowegoQuizu;
+            updatedPytania[index].dataWygasniecia = updatedDataWygasniecia;
+            setPytania(updatedPytania);
+        }
     };
 
     const handleEdytujPoprawnaOdpowiedz = (pytanieIndex, odpIndex) => {
@@ -192,13 +198,25 @@ function DodajQuiz({ dodajQuizDoListy, idOstatniegoQuizu, listaQuizow }) {
         setPytania(updatedPytania);
     };
 
+    const isValidDate = (selectedDate) => {
+        const oneDayLater = new Date();
+        oneDayLater.setDate(oneDayLater.getDate() + 1);
+
+        return selectedDate >= oneDayLater;
+    };
+
     const handleDodajQuiz = () => {
         if (!nazwa || nazwa.length < 5 || nazwa.length > 20) {
-            setBladWalidacjiQuizu('Uzupełnij Quiz (min:5, max:20, data wygasniecia conajmniej dzien pozniej)');
+            setBladWalidacjiQuizu('Uzupełnij Quiz (min:5, max:20, data wygaśnięcia musi być conajmniej dzień później niż dzisiaj)');
             return;
         }
 
         const dataWygasniecia = quizIdState ? dataWygasnieciaEdytowanegoQuizu : dataWygasnieciaNowegoQuizu;
+
+        if (!isValidDate(dataWygasniecia)) {
+            setBladWalidacjiQuizu('Data wygaśnięcia musi być conajmniej dzień później niż dzisiaj.');
+            return;
+        }
 
         if (quizIdState) {
             // Edycja istniejącego quizu
@@ -267,8 +285,8 @@ function DodajQuiz({ dodajQuizDoListy, idOstatniegoQuizu, listaQuizow }) {
                             <option value="Sławni Ludzie">Sławni Ludzie</option>
                         </select>
 
-
                     <h2 style={{ marginbottom: '25px' }}>Dodaj pytanie</h2>
+
                     {bladWalidacjiPytania && <p style={{ color: 'red' }}>{bladWalidacjiPytania}</p>}
                     
                     <label htmlFor="trescPytaniaQuiz">
@@ -280,10 +298,12 @@ function DodajQuiz({ dodajQuizDoListy, idOstatniegoQuizu, listaQuizow }) {
                     <ul className="answer-section">
                         {odpowiedzi.map((odp, index) => (
                             <li key={index} className="answer-item">
+
                                 <label htmlFor='poprawnaOdpQuiz'>
                                     Poprawna odpowiedź
                                 </label>
                                 <input id="poprawnaOdpQuiz" type="radio" name="poprawnaOdpowiedz" onChange={() => setNumerPoprawnejOdpowiedzi(index + 1)} />
+
 
                                 <span>{odp.tresc}</span>
                             </li>

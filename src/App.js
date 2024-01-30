@@ -18,11 +18,47 @@ class App extends Component {
         dataWygasniecia.setDate(dataDodania.getDate() + 2)
         this.state = {
             listaQuizow: [new QuizClass(1,"Zwierzęta na podlasiu","Zwierzęta",dataDodania,dataWygasniecia,
-                [new PytanieClass(1,"Ktore z tych zwierzat jest pod ochrona",[new OdpowiedziClass(1,"Wilk"),
-                    new OdpowiedziClass(2,"Kogut"),new OdpowiedziClass(3,"Bizon"),new OdpowiedziClass(4,"Bocian biały")],4),
-                new PytanieClass(2,"Najpopularniejsze zwierzę na podlasiu",[new OdpowiedziClass(5,"Lis"),new OdpowiedziClass(6,"Kogut"),
-                new OdpowiedziClass(7,"Żyrafa"),new OdpowiedziClass(8,"Dziki")],4)]),
-            new QuizClass(2,"Miasta na podlasiu","Miasta",dataDodania,dataWygasniecia,[])],
+                         [
+                        new PytanieClass(1,"Ktore z tych zwierzat jest pod ochrona",[
+                        new OdpowiedziClass(1,"Wilk"),
+                        new OdpowiedziClass(2,"Kogut"),
+                        new OdpowiedziClass(3,"Bizon"),
+                        new OdpowiedziClass(4,"Bocian biały")],
+                        4),
+                        new PytanieClass(2,"Najpopularniejsze zwierzę na podlasiu",[
+                        new OdpowiedziClass(5,"Lis"),
+                        new OdpowiedziClass(6,"Kogut"),
+                        new OdpowiedziClass(7,"Żyrafa"),
+                        new OdpowiedziClass(8,"Dziki")],
+                        4)
+                    ]),
+                    
+                    new QuizClass(2,"Miasta na podlasiu","Miasta",dataDodania,dataWygasniecia,[]),
+
+                    new QuizClass(3,"Podlaski Krajobraz","Przyroda i Środowisko",dataDodania,dataWygasniecia,
+                    [
+                        new PytanieClass(1,"Jakie są najważniejsze atrakcje turystyczne Podlasia?",[
+                        new OdpowiedziClass(1,"Puszcza Białowieska"),
+                        new OdpowiedziClass(2,"Krzywa chata"),
+                        new OdpowiedziClass(3,"Big Ben"),
+                        new OdpowiedziClass(4,"Pałac kultury i nauki")],
+                        1),
+                        new PytanieClass(2,"Jaki jest charakterystyczny krajobraz Podlasia?",[
+                        new OdpowiedziClass(5,"Pustynia"),
+                        new OdpowiedziClass(6,"Morze"),
+                        new OdpowiedziClass(7,"Góry"),
+                        new OdpowiedziClass(8,"Nizina/lasy")],
+                        4),
+                        new PytanieClass(3,"Jakie parki narodowe znajdują się na Podlasiu?",[
+                            new OdpowiedziClass(9,"Biebrzański"),
+                            new OdpowiedziClass(10,"Słowiński"),
+                            new OdpowiedziClass(11,"Karkonowski"),
+                            new OdpowiedziClass(12,"Kampinoski")],
+                            1)
+                    ])],
+            
+                    
+
             listaUserow:[new UserClass(1,"user","user",[1,1]),new UserClass(2,"user2","user2",[])]
         };
     }

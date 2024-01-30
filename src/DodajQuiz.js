@@ -327,14 +327,6 @@ function DodajQuiz({ dodajQuizDoListy, idOstatniegoQuizu, listaQuizow }) {
                                             Pytanie {pytanieIndex + 1}:
                                             <input type="text" value={pytanie.tresc} onChange={(e) => handleEdytujPytanieTekst(e, pytanieIndex)} />
                                         </label>
-                                        <label>
-                                            Data wygaśnięcia quizu:
-                                            <input
-                                                type="date"
-                                                value={quizIdState ? dataWygasnieciaEdytowanegoQuizu.toISOString().split('T')[0] : dataWygasnieciaNowegoQuizu.toISOString().split('T')[0]}
-                                                onChange={(e) => (quizIdState ? setDataWygasnieciaEdytowanegoQuizu(new Date(e.target.value)) : setDataWygasnieciaNowegoQuizu(new Date(e.target.value)))}
-                                            />
-                                        </label>
                                         <ul>
                                             {pytanie.odpowiedzi && pytanie.odpowiedzi.length > 0 ? (
                                                 pytanie.odpowiedzi.map((odp, odpIndex) => (

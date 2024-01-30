@@ -72,18 +72,22 @@ const WyswietlQuizy = ({ listaQuizow, usunQuizZListy }) => {
                             <p>Kategoria: {quiz.kategoria}</p>
                             <p>Data dodania: {quiz.dataDodaniaQuizu ? quiz.dataDodaniaQuizu.toLocaleDateString() : 'Brak daty'}</p>
                             <p>Data wygaśnięcia: {quiz.dataWygasniecia ? quiz.dataWygasniecia.toLocaleString() : 'Brak daty'}</p>
-                            <Link to={`/rozwiaz-quiz/${quiz.id}`}>
-                                <button>Rozwiąż Quiz</button>
-                            </Link>
-                            <button onClick={() => handleUsunQuiz(quiz.id)} className="deleteButton">
-                                Usun <br></br>Quiz
-                            </button>
-                            <br></br>
-                            <Link to={`/edytuj-quiz/${quiz.id}`}>
-                                <button className="editButton">
-                                    Edytuj<br></br> Quiz
-                                </button>
-                            </Link>
+                            <div>
+                                <Link to={`/rozwiaz-quiz/${quiz.id}`}>
+                                    <button>Rozwiąż Quiz</button>
+                                </Link>
+                                {loggedIn && (
+                                    <>
+                                        <button onClick={() => handleUsunQuiz(quiz.id)} className="deleteButton">
+                                            Usun <br></br>Quiz
+                                        </button>
+                                        <br></br>
+                                        <Link to={`/edytuj-quiz/${quiz.id}`}>
+                                            <button className="editButton">Edytuj<br></br> Quiz</button>
+                                        </Link>
+                                    </>
+                                )}
+                            </div>
                         </div>
                     );
                 })}
